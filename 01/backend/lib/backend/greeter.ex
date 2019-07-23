@@ -17,7 +17,24 @@ defmodule Backend.Greeter do
     end
   end
 
-  def greeting(name) do
-    @greeting <> ", #{name}"
+  def greeting(name \\ "anonymouse") do
+    @greeting <> ", #{sanitize_name(name)}"
+  end
+
+  defp sanitize_name(name) do
+    name
+      |> String.trim()
+      |> String.capitalize()
+  end
+  # sum = &Backend.Greeter.greeting/1
+  # sum.("People")
+
+  def senitize_names(names) do
+    names
+      |> Enum.reduce([], fn
+          name, acc when is_bitstring(name) -> [name | acc]
+          _, acc  -> acc
+        end)
+      |> Enum.reverse()
   end
 end
