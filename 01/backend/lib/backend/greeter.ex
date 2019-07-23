@@ -17,8 +17,21 @@ defmodule Backend.Greeter do
     end
   end
 
+  defguard is_even(value) when is_integer(value) and rem(value, 2) === 0
+
+  def inc_even_num(v) when is_even(v) do
+    v + 1
+  end
+
   def greeting(name \\ "anonymouse") do
-    @greeting <> ", #{sanitize_name(name)}"
+    @greeting <> ", #{sanitize_name(name)}!"
+  end
+
+  def greeting_many(names) do
+    names
+      |> senitize_names()
+      |> Enum.map(&greeting/1)
+      |> Enum.join(" ")
   end
 
   defp sanitize_name(name) do
@@ -29,11 +42,11 @@ defmodule Backend.Greeter do
   # sum = &Backend.Greeter.greeting/1
   # sum.("People")
 
-  def senitize_names(names) do
+  defp senitize_names(names) do
     names
       |> Enum.reduce([], fn
           name, acc when is_bitstring(name) -> [name | acc]
-          _, acc  -> acc
+          _, acc -> acc
         end)
       |> Enum.reverse()
   end
