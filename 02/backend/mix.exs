@@ -22,6 +22,7 @@ defmodule Backend.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:redix, "~> 0.10.0"},
       {:ecto_sql, "~>3.1"},
       {:postgrex, "~>0.15.0"}
       # {:dep_from_hexpm, "~> 0.3.0"},
