@@ -1,0 +1,3 @@
+<section class="phx-hero">
+  <h1> Login page <%= @user.name %></h1>
+</section>

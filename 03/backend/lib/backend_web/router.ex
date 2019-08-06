@@ -18,6 +18,7 @@ defmodule BackendWeb.Router do
 
     get "/", PageController, :index
     get "/about", PageController, :about
+    get "/login/:user_id", PageController, :login
   end
 
   # Other scopes may use custom stacks.
