@@ -1,5 +1,9 @@
 defmodule Backend.Genserver do
-  use GenServer
+  use GenServer, restart: :transient
+
+  def start_link(_args) do
+    GenServer.start_link(__MODULE__, nil, name: __MODULE__)
+  end
 
   def start do
     GenServer.start(__MODULE__, nil, name: __MODULE__)

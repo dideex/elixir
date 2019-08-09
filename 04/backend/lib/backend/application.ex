@@ -4,9 +4,11 @@ defmodule Backend.Application do
   @moduledoc false
 
   use Application
+  alias Backend.TestSupervisor
 
   def start(_type, _args) do
     children = [
+      TestSupervisor
       # Starts a worker by calling: Backend.Worker.start_link(arg)
       # {Backend.Worker, arg}
     ]
