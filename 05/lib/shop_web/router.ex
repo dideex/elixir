@@ -1,11 +1,11 @@
 defmodule ShopWeb.Router do
   use ShopWeb, :router
 
-  pipeline :api do
-    plug :accepts, ["json"]
-  end
-
-  scope "/api", ShopWeb do
-    pipe_through :api
+  scope "/" do
+    forward(
+      "/graphql",
+      Absinthe.Plug.GraphiQL,
+      schema: ShopWeb.Schema
+    )
   end
 end

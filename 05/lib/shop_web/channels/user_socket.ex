@@ -1,5 +1,6 @@
 defmodule ShopWeb.UserSocket do
   use Phoenix.Socket
+  use Absinthe.Phoenix.Socket, schema: ShopWeb.Schema
 
   ## Channels
   # channel "room:*", ShopWeb.RoomChannel

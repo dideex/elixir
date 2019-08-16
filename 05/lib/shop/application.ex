@@ -11,9 +11,11 @@ defmodule Shop.Application do
       # Start the Ecto repository
       Shop.Repo,
       # Start the endpoint when the application starts
-      ShopWeb.Endpoint
+      ShopWeb.Endpoint,
       # Starts a worker by calling: Shop.Worker.start_link(arg)
       # {Shop.Worker, arg},
+      # Starts Absinthne subsciptions
+      {Absinthe.Subscription, [ShopWeb.Endpoint]},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
