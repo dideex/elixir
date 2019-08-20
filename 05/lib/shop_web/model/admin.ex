@@ -4,6 +4,7 @@ defmodule ShopWeb.Schema.Admin do
 
   query do
     field :get_products, list_of(:product) do
+      arg :user_id, non_null(:id)
       resolve(&Products.get_products/2)
     end
 
