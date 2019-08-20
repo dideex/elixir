@@ -7,6 +7,11 @@ defmodule ShopWeb.Endpoint do
     longpoll: false
   )
 
+  socket("/admin", ShopWeb.AdminSocket,
+    websocket: true,
+    longpoll: false
+  )
+
   # Absinthe plug
   # plug(Plug.RequestId)
   # plug(Plug.Logger)

@@ -1,4 +1,4 @@
-defmodule ShopWeb.Schema do
+defmodule ShopWeb.Schema.Admin do
   use Absinthe.Schema
   alias ShopWeb.Resolvers.Products
 
