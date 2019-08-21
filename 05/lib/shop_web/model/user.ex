@@ -16,6 +16,16 @@ defmodule ShopWeb.Schema.User do
     end
   end
 
+  subscription do
+    field :product_added, :product do
+      arg(:shop_id, non_null(:id))
+
+      config(fn %{shop_id: shop_id}, _ ->
+        {:ok, topic: shop_id}
+      end)
+    end
+  end
+
   object :product do
     field(:id, non_null(:id))
     field(:name, non_null(:string))

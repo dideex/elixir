@@ -1,6 +1,7 @@
 defmodule ShopWeb.Resolvers.Products do
   alias Shop.{Product, Repo, Shop}
   import Ecto.Query, only: [from: 2]
+  alias ShopWeb.Endpoint
 
   def get_products(%{user_id: user_id}, _) do
     query =
@@ -22,7 +23,9 @@ defmodule ShopWeb.Resolvers.Products do
     # shop_query = from(shops in Shop, where: shops.owner_id == ^user_id)
     with %Shop{} <- Shop |> Repo.get_by(owner_id: user_id, id: shop_id) do
       product = %{amount: 0} |> Map.merge(data) |> Map.drop(~w[user_id]a)
-      %Product{} |> Product.changeset(product) |> Repo.insert()
+      {:ok, product} = %Product{} |> Product.changeset(product) |> Repo.insert()
+      Absinthe.Subscription.publish(Endpoint, product, product_added: shop_id)
+      {:ok, product}
     else
       nil -> {:error, "Wrong props"}
       error -> error

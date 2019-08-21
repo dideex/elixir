@@ -2,7 +2,7 @@ defmodule ShopWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :shop
   use Absinthe.Phoenix.Endpoint
 
-  socket("/socket", ShopWeb.UserSocket,
+  socket("/user", ShopWeb.UserSocket,
     websocket: true,
     longpoll: false
   )

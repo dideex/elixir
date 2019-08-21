@@ -1,9 +1,9 @@
 defmodule ShopWeb.Router do
   use ShopWeb, :router
 
-  scope "/" do
+  scope "/user" do
     forward(
-      "/user_graphql",
+      "/graphql",
       Absinthe.Plug.GraphiQL,
       schema: ShopWeb.Schema.User,
       socket_url: "http://localhost:4000/user"
@@ -12,14 +12,14 @@ defmodule ShopWeb.Router do
 
   scope "/admin" do
     get(
-      "/admin_graphql",
+      "/graphql",
       Absinthe.Plug.GraphiQL,
       schema: ShopWeb.Schema.Admin,
       socket_url: "http://localhost:4000/admin"
     )
 
     post(
-      "/admin_graphql",
+      "/graphql",
       Absinthe.Plug.GraphiQL,
       schema: ShopWeb.Schema.Admin,
       socket_url: "http://localhost:4000/admin"
