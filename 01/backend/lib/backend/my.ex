@@ -15,22 +15,26 @@ defmodule Backend.My do
   end
 
   def almostIncreasingSequence(sequence) do
-    # sequence
-    # |> Enum.zip(tl(sequence))
-    # |> tl()
-    Enum.reduce(sequence, [], fn _, acc ->
-      if hd(acc) > hd(hd(acc)) do
-        tl(acc)
-      else
-        acc
-      end
-    end)
+    case finder(sequence, 0) do
+      [] ->
+        true
 
-    # |> (&(length(&1) <= 2)).()
+      index ->
+        IO.puts(index)
 
-    # 2 5 3 5
-    # 1 2 5 3 5
-
-    # |> (&(&1 <= 1)).()
+        finder(List.delete_at(sequence, index + 1), 0) == [] or
+          finder(List.delete_at(sequence, index), 0) == []
+    end
   end
+
+  defp finder([h1 | [h | _]], index) when h1 >= h, do: index
+  defp finder([_h | t], index), do: finder(t, index + 1)
+  defp finder([], _), do: []
+
+  # |> (&(length(&1) <= 2)).()
+
+  # 2 5 3 5
+  # 1 2 5 3 5
+
+  # |> (&(&1 <= 1)).()
 end
