@@ -15,21 +15,21 @@ defmodule Backend.My do
   end
 
   def almostIncreasingSequence(sequence) do
-    sequence
+    # sequence
     # |> Enum.zip(tl(sequence))
-    |> tl()
-    |> Enum.reduce(sequence, fn x, acc ->
-      if hd(acc) < x do
+    # |> tl()
+    Enum.reduce(sequence, [], fn _, acc ->
+      if hd(acc) > hd(hd(acc)) do
         tl(acc)
       else
         acc
       end
     end)
+
     # |> (&(length(&1) <= 2)).()
 
-# 2 5 3 5
-# 1 2 5 3 5
-
+    # 2 5 3 5
+    # 1 2 5 3 5
 
     # |> (&(&1 <= 1)).()
   end
