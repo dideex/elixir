@@ -31,10 +31,8 @@ defmodule Backend.My do
   defp finder([_h | t], index), do: finder(t, index + 1)
   defp finder([], _), do: []
 
-  # |> (&(length(&1) <= 2)).()
+  def matrixElementsSum(matrix) do
+    IO.inspect(matrix)
+  end
 
-  # 2 5 3 5
-  # 1 2 5 3 5
-
-  # |> (&(&1 <= 1)).()
 end
