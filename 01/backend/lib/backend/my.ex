@@ -35,4 +35,11 @@ defmodule Backend.My do
     IO.inspect(matrix)
   end
 
+  def reverseMatrix(matrix) do
+    Enum.map(hd(m), fn x -> getCol() end)
+  end
+  defp getCol(matrix) do
+    Enum.map(matrix, fn x -> hd(x) end)
+  end
+
 end
