@@ -36,10 +36,33 @@ defmodule Backend.My do
   end
 
   def reverseMatrix(matrix) do
-    Enum.map(hd(m), fn x -> getCol() end)
+    sep_head_and_tail(matrix)
+    # Enum.map(hd(m), fn x -> get_heads() end)
   end
-  defp getCol(matrix) do
-    Enum.map(matrix, fn x -> hd(x) end)
+
+  def get_heads(m) do
+    get_heads(m, 0)
+  end
+  def get_heads(matrix, count) do
+    summing = true
+    Enum.reduce(matrix, 0, fn
+      x, sum when summing ->
+        h = hd(x)
+        if h != 0 do
+          h + sum
+        else
+            summing = false
+            sum
+        end
+      _, sum -> sum
+    end)
+  end
+  defp get_tails(matrix) do
+    Enum.map(matrix, fn x -> tl(x) end)
+  end
+  defp sep_head_and_tail(matrix) do
+    heads = get_heads(matrix)
+    tails = get_tails(matrix)
   end
 
 end
