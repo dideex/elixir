@@ -35,10 +35,14 @@ defmodule Backend.My do
     IO.inspect(matrix)
   end
 
-  def reverseMatrix(matrix) do
-    sep_head_and_tail(matrix)
-    # Enum.map(hd(m), fn x -> get_heads() end)
+  def reverseMatrix([[]]) do
+    0
   end
+  def reverseMatrix(matrix) do
+    heads = Enum.map(matrix, fn [h | _t] -> h end)
+    untilZero(heads)
+  end
+
 
   def get_heads(m) do
     get_heads(m, 0)
