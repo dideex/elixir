@@ -65,4 +65,14 @@ defmodule Backend.My do
     tails = get_tails(matrix)
   end
 
+  def untilZero([h | t]) when h !== 0 do
+    h + untilZero(t)
+  end
+  def untilZero([h | _t]) do
+    h
+  end
+  def untilZero([]) do
+    0
+  end
+
 end
