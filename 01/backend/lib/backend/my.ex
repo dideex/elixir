@@ -39,35 +39,14 @@ defmodule Backend.My do
     0
   end
   def reverseMatrix(matrix) do
+    reverseMatrix(matrix, 0)
+  end
+  def reverseMatrix(matrix, sum) do
     heads = Enum.map(matrix, fn [h | _t] -> h end)
-    untilZero(heads)
+    tails = Enum.map(matrix, fn [_ | t] -> t end)
+    reverseMatrix(tails, sum + untilZero(heads))
   end
 
-
-  def get_heads(m) do
-    get_heads(m, 0)
-  end
-  def get_heads(matrix, count) do
-    summing = true
-    Enum.reduce(matrix, 0, fn
-      x, sum when summing ->
-        h = hd(x)
-        if h != 0 do
-          h + sum
-        else
-            summing = false
-            sum
-        end
-      _, sum -> sum
-    end)
-  end
-  defp get_tails(matrix) do
-    Enum.map(matrix, fn x -> tl(x) end)
-  end
-  defp sep_head_and_tail(matrix) do
-    heads = get_heads(matrix)
-    tails = get_tails(matrix)
-  end
 
   def untilZero([h | t]) when h !== 0 do
     h + untilZero(t)
