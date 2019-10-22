@@ -35,27 +35,33 @@ defmodule Backend.My do
     IO.inspect(matrix)
   end
 
-  def reverseMatrix([[]]) do
-    0
-  end
-  def reverseMatrix(matrix) do
-    reverseMatrix(matrix, 0)
-  end
-  def reverseMatrix(matrix, sum) do
-    heads = Enum.map(matrix, fn [h | _t] -> h end)
-    tails = Enum.map(matrix, fn [_ | t] -> t end)
-    reverseMatrix(tails, sum + untilZero(heads))
+  def matrixElementsSum(matrix) do
+    matrixElementsSum(matrix, 0)
   end
 
+  def matrixElementsSum(matrix, sum) do
+    case length(hd(matrix)) do
+      0 ->
+        sum
+
+      _ ->
+        heads = Enum.map(matrix, fn [h | _t] -> h end)
+
+        matrix
+        |> Enum.map(fn [_ | t] -> t end)
+        |> matrixElementsSum(sum + untilZero(heads))
+    end
+  end
 
   def untilZero([h | t]) when h !== 0 do
     h + untilZero(t)
   end
+
   def untilZero([h | _t]) do
     h
   end
+
   def untilZero([]) do
     0
   end
-
 end
