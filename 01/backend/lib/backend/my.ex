@@ -64,4 +64,21 @@ defmodule Backend.My do
   def untilZero([]) do
     0
   end
+
+  def allLongestStrings(inputArray) do
+    inputArray
+    |> Enum.reduce([""], fn str, [h | _] = acc ->
+      cond do
+        String.length(str) > String.length(h) -> [str]
+        String.length(str) === String.length(h) -> [str | acc]
+        true -> acc
+      end
+    end)
+    |> Enum.reverse
+  end
+  def allLongestStringsSolved(n) do
+    grouped = Enum.group_by(n, &String.length/1)
+    Map.fetch!(grouped, Enum.max(Map.keys(grouped)))
+  end
+
 end
