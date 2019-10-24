@@ -74,11 +74,19 @@ defmodule Backend.My do
         true -> acc
       end
     end)
-    |> Enum.reverse
+    |> Enum.reverse()
   end
+
   def allLongestStringsSolved(n) do
     grouped = Enum.group_by(n, &String.length/1)
     Map.fetch!(grouped, Enum.max(Map.keys(grouped)))
   end
 
+  def commonCharacterCount(s1, s2) do
+    s1
+    |> String.split("", trim: true)
+    |> Enum.uniq()
+    |> Enum.filter(fn char -> String.contains?(s2, char) end)
+    |> length
+  end
 end
