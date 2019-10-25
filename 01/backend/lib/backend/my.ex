@@ -83,10 +83,20 @@ defmodule Backend.My do
   end
 
   def commonCharacterCount(s1, s2) do
-    s1
-    |> String.split("", trim: true)
-    |> Enum.uniq()
-    |> Enum.filter(fn char -> String.contains?(s2, char) end)
-    |> length
+    a1 = String.split(s1, "", trim: true)
+    a2 = String.split(s2, "", trim: true)
+    commonCharacterCount(a1, a2, 0)
+  end
+  def commonCharacterCount([h | t], a2, count) do
+    cond do
+      Enum.member?(a2, h) ->
+        commonCharacterCount(t, List.delete(a2, h), count + 1)
+
+      true ->
+        commonCharacterCount(t, a2, count)
+    end
+  end
+  def commonCharacterCount([], _, count) do
+    count
   end
 end
