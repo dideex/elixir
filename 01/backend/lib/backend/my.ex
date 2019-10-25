@@ -99,4 +99,11 @@ defmodule Backend.My do
   def commonCharacterCount([], _, count) do
     count
   end
+
+  # def commonCharacterCount(s1, s2) do
+  #   left = String.to_charlist(s1)
+  #   right = String.to_charlist(s2)
+  #   diff = left -- right
+  #   length(left -- diff)
+  # end
 end
