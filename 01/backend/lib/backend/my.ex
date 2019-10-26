@@ -87,6 +87,7 @@ defmodule Backend.My do
     a2 = String.split(s2, "", trim: true)
     commonCharacterCount(a1, a2, 0)
   end
+
   def commonCharacterCount([h | t], a2, count) do
     cond do
       Enum.member?(a2, h) ->
@@ -96,6 +97,7 @@ defmodule Backend.My do
         commonCharacterCount(t, a2, count)
     end
   end
+
   def commonCharacterCount([], _, count) do
     count
   end
@@ -106,4 +108,14 @@ defmodule Backend.My do
   #   diff = left -- right
   #   length(left -- diff)
   # end
+  def isLucky(n) do
+    list = Integer.digits(n)
+    middle = div(length(list), 2)
+
+    list
+    |> Enum.slice(0, middle)
+    |> Enum.zip(Enum.slice(list, middle, length(list)))
+    |> Enum.reduce({0, 0}, fn {a1, a2}, {n1, n2} -> {a1 + n1, a2 + n2} end)
+    |> (fn {l, r} -> l == r end).()
+  end
 end
