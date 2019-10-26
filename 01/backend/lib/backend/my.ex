@@ -118,4 +118,15 @@ defmodule Backend.My do
     |> Enum.reduce({0, 0}, fn {a1, a2}, {n1, n2} -> {a1 + n1, a2 + n2} end)
     |> (fn {l, r} -> l == r end).()
   end
+#   def isLucky(n) do
+#     nums = Integer.digits(n)
+
+#     len =
+#       (length(nums) / 2)
+#       |> round
+
+#     [l1, l2] = Enum.chunk(nums, len)
+
+#     Enum.sum(l1) === Enum.sum(l2)
+# end
 end
