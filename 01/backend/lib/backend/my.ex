@@ -129,4 +129,10 @@ defmodule Backend.My do
 
 #     Enum.sum(l1) === Enum.sum(l2)
 # end
+  def sortByHeight(a) do
+    a
+    |> Enum.chunk_by(fn n -> n == -1 end)
+    |> Enum.map(fn n -> Enum.sort(n, &(&1 <= &2)) end)
+    |> List.flatten()
+  end
 end
