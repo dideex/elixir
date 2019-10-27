@@ -130,9 +130,23 @@ defmodule Backend.My do
 #     Enum.sum(l1) === Enum.sum(l2)
 # end
   def sortByHeight(a) do
+    noTrees =
     a
-    |> Enum.chunk_by(fn n -> n == -1 end)
-    |> Enum.map(fn n -> Enum.sort(n, &(&1 <= &2)) end)
-    |> List.flatten()
+    |> Enum.filter(fn x -> x != -1 end)
+    |> Enum.sort(&(&1 <= &2))
+
+    sort_with_trees(a, noTrees)
+  end
+  def sort_with_trees([num | rest], [h | t] = sorted) do
+    case num == -1 do
+      true -> [ num | sort_with_trees(rest, sorted) ]
+      false ->  [h | sort_with_trees(rest, t)]
+    end
+  end
+  def sort_with_trees(a, []) do
+    a
+  end
+  def sort_with_trees([], _) do
+    []
   end
 end
