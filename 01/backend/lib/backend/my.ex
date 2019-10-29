@@ -118,39 +118,49 @@ defmodule Backend.My do
     |> Enum.reduce({0, 0}, fn {a1, a2}, {n1, n2} -> {a1 + n1, a2 + n2} end)
     |> (fn {l, r} -> l == r end).()
   end
-#   def isLucky(n) do
-#     nums = Integer.digits(n)
 
-#     len =
-#       (length(nums) / 2)
-#       |> round
+  #   def isLucky(n) do
+  #     nums = Integer.digits(n)
 
-#     [l1, l2] = Enum.chunk(nums, len)
+  #     len =
+  #       (length(nums) / 2)
+  #       |> round
 
-#     Enum.sum(l1) === Enum.sum(l2)
-# end
+  #     [l1, l2] = Enum.chunk(nums, len)
+
+  #     Enum.sum(l1) === Enum.sum(l2)
+  # end
   def sortByHeight(a) do
     noTrees =
-    a
-    |> Enum.filter(fn x -> x != -1 end)
-    |> Enum.sort(&(&1 <= &2))
+      a
+      |> Enum.filter(fn x -> x != -1 end)
+      |> Enum.sort(&(&1 <= &2))
 
     sort_with_trees(a, noTrees)
   end
+
   def sort_with_trees([num | rest], [h | t] = sorted) do
     case num == -1 do
-      true -> [ num | sort_with_trees(rest, sorted) ]
-      false ->  [h | sort_with_trees(rest, t)]
+      true -> [num | sort_with_trees(rest, sorted)]
+      false -> [h | sort_with_trees(rest, t)]
     end
   end
+
   def sort_with_trees(a, []) do
     a
   end
+
   def sort_with_trees([], _) do
     []
   end
 
   def reverseInParentheses(inputString) do
-
+    s = Regex.replace(~r/\(([\w]*)\)/, inputString, fn _, x -> String.reverse(x) end)
+    if Regex.match?(~r/\(/, s) do
+      reverseInParentheses(s)
+    else
+      s
+    end
+  end
   end
 end
