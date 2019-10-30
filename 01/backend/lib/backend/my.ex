@@ -177,4 +177,8 @@ defmodule Backend.My do
   def alternatingSums([], res, _) do
     res
   end
+  # def alternatingSums(a) do
+  #   pare = Enum.drop_every(a,2)
+  #   [Enum.sum(a -- pare),Enum.sum(pare)]
+  # end
 end
