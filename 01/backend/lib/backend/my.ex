@@ -156,11 +156,25 @@ defmodule Backend.My do
 
   def reverseInParentheses(inputString) do
     s = Regex.replace(~r/\(([\w]*)\)/, inputString, fn _, x -> String.reverse(x) end)
+
     if Regex.match?(~r/\(/, s) do
       reverseInParentheses(s)
     else
       s
     end
   end
+
+  def alternatingSums(a) do
+    alternatingSums(a, [0, 0], 0)
+  end
+  def alternatingSums([num | rest], [t1, t2], index) do
+    if rem(index, 2) == 0 do
+      alternatingSums(rest, [t1 + num, t2], index + 1)
+    else
+      alternatingSums(rest, [t1, t2 + num], index + 1)
+    end
+  end
+  def alternatingSums([], res, _) do
+    res
   end
 end
