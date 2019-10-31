@@ -181,4 +181,10 @@ defmodule Backend.My do
   #   pare = Enum.drop_every(a,2)
   #   [Enum.sum(a -- pare),Enum.sum(pare)]
   # end
+
+  def addBorder(picture) do
+    picture = Enum.map(picture, fn x -> "*#{x}*" end)
+    n = String.length(hd(picture))
+    [String.duplicate("*", n)] ++ picture ++ [String.duplicate("*", n)]
+  end
 end
