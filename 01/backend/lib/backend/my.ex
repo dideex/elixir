@@ -187,4 +187,8 @@ defmodule Backend.My do
     n = String.length(hd(picture))
     [String.duplicate("*", n)] ++ picture ++ [String.duplicate("*", n)]
   end
+
+  def areSimilar(a, b) do
+
+  end
 end
