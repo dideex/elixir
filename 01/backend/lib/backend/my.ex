@@ -189,6 +189,17 @@ defmodule Backend.My do
   end
 
   def areSimilar(a, b) do
-
+    areSimilar(a, b, 0) < 2
+  end
+  def areSimilar([ah | at] = a, [bh | bt] = b, count) do
+    cond do
+      ah == bh -> areSimilar(at, bt, count)
+      ah != bh && length(at) == 0 -> count + 1
+      ah == hd(bt) -> areSimilar(at, [bh | tl(bt) ], count + 1)
+      true -> 2
+    end
+  end
+  def areSimilar([], _, count) do
+    count
   end
 end
