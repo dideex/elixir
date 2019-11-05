@@ -212,4 +212,10 @@ defmodule Backend.My do
   def areSimilar([], _, count, _) do
     count
   end
+#   def areSimilar(a, b) do
+#     diffs = Enum.zip(a, b)
+#     |> Enum.filter(fn {x, y} -> x != y end)
+
+#     Enum.empty?(diffs) or match?([{x, y}, {y, x}], diffs)
+# end
 end
