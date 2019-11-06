@@ -228,14 +228,14 @@ defmodule Backend.My do
   # end
   def arrayChange([h | t] = inputArray) do
     t
-    |> Enum.reduce([0, h], fn cur, [count, prev] ->
-        if cur > prev do
-          [count, cur]
-        else
-          diff = prev - cur + 1
-          [count + diff, cur + diff]
-        end
-      end)
-    |> (fn [r, _] -> r end).()
+    |> Enum.reduce({0, h}, fn cur, {count, prev} ->
+      if cur > prev do
+        {count, cur}
+      else
+        diff = prev - cur + 1
+        {count + diff, cur + diff}
+      end
+    end)
+    |> elem(0)
   end
 end
