@@ -167,6 +167,7 @@ defmodule Backend.My do
   def alternatingSums(a) do
     alternatingSums(a, [0, 0], 0)
   end
+
   def alternatingSums([num | rest], [t1, t2], index) do
     if rem(index, 2) == 0 do
       alternatingSums(rest, [t1 + num, t2], index + 1)
@@ -174,9 +175,11 @@ defmodule Backend.My do
       alternatingSums(rest, [t1, t2 + num], index + 1)
     end
   end
+
   def alternatingSums([], res, _) do
     res
   end
+
   # def alternatingSums(a) do
   #   pare = Enum.drop_every(a,2)
   #   [Enum.sum(a -- pare),Enum.sum(pare)]
@@ -191,6 +194,7 @@ defmodule Backend.My do
   def areSimilar(a, b) do
     areSimilar(a, b, 0)
   end
+
   def areSimilar([ah | at], [bh | bt], count) do
     cond do
       ah == bh -> areSimilar(at, bt, count)
@@ -199,6 +203,7 @@ defmodule Backend.My do
       true -> 2
     end
   end
+
   def areSimilar([ah | at] = a, [bh | bt] = b, count, [sa, sb] = s) do
     cond do
       ah == bh -> areSimilar(at, bt, count, s)
@@ -206,16 +211,31 @@ defmodule Backend.My do
       true -> 2
     end
   end
+
   def areSimilar([], _, count) do
     count
   end
+
   def areSimilar([], _, count, _) do
     count
   end
-#   def areSimilar(a, b) do
-#     diffs = Enum.zip(a, b)
-#     |> Enum.filter(fn {x, y} -> x != y end)
 
-#     Enum.empty?(diffs) or match?([{x, y}, {y, x}], diffs)
-# end
+  #   def areSimilar(a, b) do
+  #     diffs = Enum.zip(a, b)
+  #     |> Enum.filter(fn {x, y} -> x != y end)
+
+  #     Enum.empty?(diffs) or match?([{x, y}, {y, x}], diffs)
+  # end
+  def arrayChange([h | t] = inputArray) do
+    t
+    |> Enum.reduce([0, h], fn cur, [count, prev] ->
+        if cur > prev do
+          [count, cur]
+        else
+          diff = prev - cur + 1
+          [count + diff, cur + diff]
+        end
+      end)
+    |> (fn [r, _] -> r end).()
+  end
 end
