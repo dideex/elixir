@@ -238,4 +238,13 @@ defmodule Backend.My do
     end)
     |> elem(0)
   end
+  def palindromeRearranging(inputString) do
+    inputString
+    |> String.graphemes
+    |> Enum.sort
+    |> Enum.chunk_by(fn x -> x end)
+    |> Enum.filter(fn x -> rem(length(x), 2) == 1 end)
+    |> length
+    |> (&(&1 <= 1)).()
+  end
 end
