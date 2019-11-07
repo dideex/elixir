@@ -242,9 +242,8 @@ defmodule Backend.My do
     inputString
     |> String.graphemes
     |> Enum.sort
-    |> Enum.chunk_by(fn x -> x end)
+    |> Enum.chunk_by(&(&1))
     |> Enum.filter(fn x -> rem(length(x), 2) == 1 end)
-    |> length
-    |> (&(&1 <= 1)).()
+    |> length <= 1
   end
 end
