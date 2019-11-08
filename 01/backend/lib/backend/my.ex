@@ -253,4 +253,7 @@ defmodule Backend.My do
       true -> false
     end
   end
+  # def areEquallyStrong(l1, r1, l2, r2) do
+  #   Enum.min_max([l1, r1]) == Enum.min_max([l2, r2])
+  # end
 end
