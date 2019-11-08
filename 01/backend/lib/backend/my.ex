@@ -246,4 +246,11 @@ defmodule Backend.My do
     |> Enum.filter(fn x -> rem(length(x), 2) == 1 end)
     |> length <= 1
   end
+  def areEquallyStrong(yourLeft, yourRight, friendsLeft, friendsRight) do
+    cond do
+      yourLeft == friendsLeft and yourRight == friendsRight -> true
+      yourLeft == friendsRight and yourRight == friendsLeft -> true
+      true -> false
+    end
+  end
 end
