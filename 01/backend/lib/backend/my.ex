@@ -256,4 +256,16 @@ defmodule Backend.My do
   # def areEquallyStrong(l1, r1, l2, r2) do
   #   Enum.min_max([l1, r1]) == Enum.min_max([l2, r2])
   # end
+
+  def arrayMaximalAdjacentDifference(inputArray) do
+    inputArray
+    |> Enum.zip(tl(inputArray))
+    |> Enum.reduce(0, fn {first, second}, max ->
+      if abs(first - second) > max do
+        abs(first - second)
+      else
+        max
+      end
+    end)
+  end
 end
