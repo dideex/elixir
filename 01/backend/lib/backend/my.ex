@@ -268,4 +268,21 @@ defmodule Backend.My do
       end
     end)
   end
+
+  def isIPv4Address(inputString) do
+    nums =
+      inputString
+      |> String.split(".")
+
+    if length(nums) != 4 do
+      false
+    else
+      Enum.all?(nums, fn x -> case Integer.parse(x) do
+        {num, ""} -> 255 >= num and num >= 0
+        {_, _} -> false
+        :error -> false
+        end
+      end)
+    end
+  end
 end
