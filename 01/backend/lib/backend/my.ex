@@ -285,4 +285,14 @@ defmodule Backend.My do
       end)
     end
   end
+
+  def avoidObstacles(inputArray) do
+    avoidObstacles(inputArray, 1)
+  end
+  def avoidObstacles(nums, count) do
+    case Enum.any?(nums, &(rem(&1, count) == 0)) do
+      true -> avoidObstacles(nums, count + 1)
+      _ -> count
+    end
+  end
 end
