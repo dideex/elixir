@@ -295,4 +295,7 @@ defmodule Backend.My do
       _ -> count
     end
   end
+  def boxBlur(image) do
+
+  end
 end
