@@ -297,22 +297,24 @@ defmodule Backend.My do
   end
 
   def boxBlur(image) do
-    Enum.map(0..length(image) - 3, fn col ->
-      row = Enum.at(image, col)
-      Enum.map(0..length(row) - 3, fn num ->
-        sumMatix(image, col, row)
+    Enum.map(0..length(image) - 3, fn x ->
+      row = Enum.at(image, x)
+      IO.puts(inspect 0..length(row) - 3)
+      Enum.map(0..length(row) - 3, fn y ->
+        sumMatix(image, x, y)
       end)
     end)
   end
   def sumMatix(matrix, x, y) do
-    map = [[0,0],[1,0],[2,0],
-           [1,0],[1,1],[2,1],
-           [2,0],[2,1],[2,2]]
-    Enum.reduce(map, 0, fn [dx, dy], num ->
+    [ [0,0],[1,0],[2,0],
+      [1,0],[1,1],[2,1],
+      [2,0],[2,1],[2,2]]
+    |> Enum.reduce( 0, fn [dx, dy], num ->
       matrix
       |> Enum.at(dx + x)
       |> Enum.at(dy + y)
       |> (&(&1 + num)).()
     end)
+    |> (&(div(&1, 9))).()
   end
 end
