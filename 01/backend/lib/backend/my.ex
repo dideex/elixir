@@ -307,8 +307,8 @@ defmodule Backend.My do
   end
   def sumMatix(matrix, x, y) do
     [ [0,0],[1,0],[2,0],
-      [1,0],[1,1],[2,1],
-      [2,0],[2,1],[2,2]]
+      [0,1],[1,1],[2,1],
+      [0,2],[1,2],[2,2]]
     |> Enum.reduce( 0, fn [dx, dy], num ->
       matrix
       |> Enum.at(dx + x)
