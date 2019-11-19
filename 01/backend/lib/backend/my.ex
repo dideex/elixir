@@ -299,13 +299,12 @@ defmodule Backend.My do
   def boxBlur(image) do
     Enum.map(0..length(image) - 3, fn x ->
       row = Enum.at(image, x)
-      IO.puts(inspect 0..length(row) - 3)
       Enum.map(0..length(row) - 3, fn y ->
         sumMatix(image, x, y)
       end)
     end)
   end
-  def sumMatix(matrix, x, y) do
+  defp sumMatix(matrix, x, y) do
     [ [0,0],[1,0],[2,0],
       [0,1],[1,1],[2,1],
       [0,2],[1,2],[2,2]]
@@ -317,4 +316,15 @@ defmodule Backend.My do
     end)
     |> (&(div(&1, 9))).()
   end
+  # def boxBlur(image) do
+  #   Enum.chunk_every(image, 3, 1, :discard)
+  #   |> Enum.map(&_boxBlur(&1))
+  # end
+
+  # def _boxBlur(image) do
+  #   Enum.map(image, &Enum.chunk_every(&1, 3, 1, :discard))
+  #   |> Enum.map(fn y -> Enum.map(y, fn x -> Enum.sum(x) end) end)
+  #   |> Enum.zip
+  #   |> Enum.map(fn x -> div(Tuple.to_list(x) |> Enum.sum, 9) end)
+  # end
 end
