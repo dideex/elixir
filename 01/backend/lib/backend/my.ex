@@ -327,4 +327,7 @@ defmodule Backend.My do
   #   |> Enum.zip
   #   |> Enum.map(fn x -> div(Tuple.to_list(x) |> Enum.sum, 9) end)
   # end
+  def minesweeper(matrix) do
+
+  end
 end
