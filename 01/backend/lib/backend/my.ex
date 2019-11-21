@@ -238,14 +238,16 @@ defmodule Backend.My do
     end)
     |> elem(0)
   end
+
   def palindromeRearranging(inputString) do
     inputString
-    |> String.graphemes
-    |> Enum.sort
-    |> Enum.chunk_by(&(&1))
+    |> String.graphemes()
+    |> Enum.sort()
+    |> Enum.chunk_by(& &1)
     |> Enum.filter(fn x -> rem(length(x), 2) == 1 end)
     |> length <= 1
   end
+
   def areEquallyStrong(yourLeft, yourRight, friendsLeft, friendsRight) do
     cond do
       yourLeft == friendsLeft and yourRight == friendsRight -> true
@@ -253,6 +255,7 @@ defmodule Backend.My do
       true -> false
     end
   end
+
   # def areEquallyStrong(l1, r1, l2, r2) do
   #   Enum.min_max([l1, r1]) == Enum.min_max([l2, r2])
   # end
@@ -277,10 +280,11 @@ defmodule Backend.My do
     if length(nums) != 4 do
       false
     else
-      Enum.all?(nums, fn x -> case Integer.parse(x) do
-        {num, ""} -> 255 >= num and num >= 0
-        {_, _} -> false
-        :error -> false
+      Enum.all?(nums, fn x ->
+        case Integer.parse(x) do
+          {num, ""} -> 255 >= num and num >= 0
+          {_, _} -> false
+          :error -> false
         end
       end)
     end
@@ -289,6 +293,7 @@ defmodule Backend.My do
   def avoidObstacles(inputArray) do
     avoidObstacles(inputArray, 1)
   end
+
   def avoidObstacles(nums, count) do
     case Enum.any?(nums, &(rem(&1, count) == 0)) do
       true -> avoidObstacles(nums, count + 1)
@@ -297,25 +302,26 @@ defmodule Backend.My do
   end
 
   def boxBlur(image) do
-    Enum.map(0..length(image) - 3, fn x ->
+    Enum.map(0..(length(image) - 3), fn x ->
       row = Enum.at(image, x)
-      Enum.map(0..length(row) - 3, fn y ->
+
+      Enum.map(0..(length(row) - 3), fn y ->
         sumMatix(image, x, y)
       end)
     end)
   end
+
   defp sumMatix(matrix, x, y) do
-    [ [0,0],[1,0],[2,0],
-      [0,1],[1,1],[2,1],
-      [0,2],[1,2],[2,2]]
-    |> Enum.reduce( 0, fn [dx, dy], num ->
+    [[0, 0], [1, 0], [2, 0], [0, 1], [1, 1], [2, 1], [0, 2], [1, 2], [2, 2]]
+    |> Enum.reduce(0, fn [dx, dy], num ->
       matrix
       |> Enum.at(dx + x)
       |> Enum.at(dy + y)
       |> (&(&1 + num)).()
     end)
-    |> (&(div(&1, 9))).()
+    |> (&div(&1, 9)).()
   end
+
   # def boxBlur(image) do
   #   Enum.chunk_every(image, 3, 1, :discard)
   #   |> Enum.map(&_boxBlur(&1))
@@ -328,6 +334,39 @@ defmodule Backend.My do
   #   |> Enum.map(fn x -> div(Tuple.to_list(x) |> Enum.sum, 9) end)
   # end
   def minesweeper(matrix) do
+    Enum.map(
+      0..length(matrix),
+      fn x ->
+        row = Enum.at(matrix, x)
 
+        Enum.map(
+          0..length(row),
+          fn y -> minesweeper(matrix, x, y) end
+        )
+      end
+    )
+  end
+
+  def minesweeper(matrix, x, y) do
+    [[-1,-1], [0, -1], [1, -1],
+     [-1, 0],          [1, 0],
+     [-1, 1], [0, 1],  [1, 1]]
+    |> Enum.reduce(0, fn [dx, dy], sum ->
+      if dx + x < 0 or dy + y < 0 do
+        sum
+      else
+        res =
+          matrix
+          |> Enum.at(x + dx)
+          |> Enum.at(y + dy)
+
+        IO.inspect(res)
+
+        case res do
+          true -> sum + 1
+          _ -> sum
+        end
+      end
+    end)
   end
 end
