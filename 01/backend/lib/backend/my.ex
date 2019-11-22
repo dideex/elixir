@@ -335,12 +335,12 @@ defmodule Backend.My do
   # end
   def minesweeper(matrix) do
     Enum.map(
-      0..length(matrix),
+      0..length(matrix) - 1,
       fn x ->
         row = Enum.at(matrix, x)
 
         Enum.map(
-          0..length(row),
+          0..length(row) - 1,
           fn y -> minesweeper(matrix, x, y) end
         )
       end
@@ -352,17 +352,11 @@ defmodule Backend.My do
      [-1, 0],          [1, 0],
      [-1, 1], [0, 1],  [1, 1]]
     |> Enum.reduce(0, fn [dx, dy], sum ->
-      if dx + x < 0 or dy + y < 0 do
+      row = Enum.at(matrix, x + dx)
+      if dx + x < 0 or dy + y < 0 or row == nil do
         sum
       else
-        res =
-          matrix
-          |> Enum.at(x + dx)
-          |> Enum.at(y + dy)
-
-        IO.inspect(res)
-
-        case res do
+        case Enum.at(row, y + dy) do
           true -> sum + 1
           _ -> sum
         end
