@@ -363,4 +363,15 @@ defmodule Backend.My do
       end
     end)
   end
+#   def minesweeper(m) do
+#     empty = List.duplicate(false, length(hd(m)) + 2)
+#     padded = [empty] ++ Enum.map(m, fn x -> [false] ++ x ++ [false] end) ++ [empty]
+#     |> Enum.map(fn x -> Enum.chunk_every(x, 3, 1, :discard) end)
+#     |> Enum.chunk_every(3, 1, :discard)
+#     |> Enum.map(fn x -> Enum.zip(x) end)
+#     |> Enum.map(fn x -> Enum.map(x, fn y -> mine_count(y) end) end)
+#  end
+
+#  def mine_count({[a, b, c], [d, e, f], [g, h, i]}) do Enum.count([a, b, c, d, f, g, h, i], &(&1)) end
+
 end
