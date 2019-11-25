@@ -335,12 +335,12 @@ defmodule Backend.My do
   # end
   def minesweeper(matrix) do
     Enum.map(
-      0..length(matrix) - 1,
+      0..(length(matrix) - 1),
       fn x ->
         row = Enum.at(matrix, x)
 
         Enum.map(
-          0..length(row) - 1,
+          0..(length(row) - 1),
           fn y -> minesweeper(matrix, x, y) end
         )
       end
@@ -348,11 +348,10 @@ defmodule Backend.My do
   end
 
   def minesweeper(matrix, x, y) do
-    [[-1,-1], [0, -1], [1, -1],
-     [-1, 0],          [1, 0],
-     [-1, 1], [0, 1],  [1, 1]]
+    [[-1, -1], [0, -1], [1, -1], [-1, 0], [1, 0], [-1, 1], [0, 1], [1, 1]]
     |> Enum.reduce(0, fn [dx, dy], sum ->
       row = Enum.at(matrix, x + dx)
+
       if dx + x < 0 or dy + y < 0 or row == nil do
         sum
       else
@@ -363,15 +362,22 @@ defmodule Backend.My do
       end
     end)
   end
-#   def minesweeper(m) do
-#     empty = List.duplicate(false, length(hd(m)) + 2)
-#     padded = [empty] ++ Enum.map(m, fn x -> [false] ++ x ++ [false] end) ++ [empty]
-#     |> Enum.map(fn x -> Enum.chunk_every(x, 3, 1, :discard) end)
-#     |> Enum.chunk_every(3, 1, :discard)
-#     |> Enum.map(fn x -> Enum.zip(x) end)
-#     |> Enum.map(fn x -> Enum.map(x, fn y -> mine_count(y) end) end)
-#  end
 
-#  def mine_count({[a, b, c], [d, e, f], [g, h, i]}) do Enum.count([a, b, c, d, f, g, h, i], &(&1)) end
+  #   def minesweeper(m) do
+  #     empty = List.duplicate(false, length(hd(m)) + 2)
+  #     padded = [empty] ++ Enum.map(m, fn x -> [false] ++ x ++ [false] end) ++ [empty]
+  #     |> Enum.map(fn x -> Enum.chunk_every(x, 3, 1, :discard) end)
+  #     |> Enum.chunk_every(3, 1, :discard)
+  #     |> Enum.map(fn x -> Enum.zip(x) end)
+  #     |> Enum.map(fn x -> Enum.map(x, fn y -> mine_count(y) end) end)
+  #  end
 
+  #  def mine_count({[a, b, c], [d, e, f], [g, h, i]}) do Enum.count([a, b, c, d, f, g, h, i], &(&1)) end
+
+  def arrayReplace(inputArray, elemToReplace, substitutionElem) do
+    Enum.map(inputArray, fn
+      x when x == elemToReplace -> substitutionElem
+      x -> x
+    end)
+  end
 end
