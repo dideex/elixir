@@ -380,4 +380,12 @@ defmodule Backend.My do
       x -> x
     end)
   end
+  # def arrayReplace(inputArray, elemToReplace, substitutionElem) do
+  #   Enum.map(inputArray, fn i ->
+  #       case i do
+  #           ^elemToReplace -> substitutionElem
+  #           _ -> i
+  #       end
+  #   end)
+  # end
 end
