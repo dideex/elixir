@@ -388,4 +388,9 @@ defmodule Backend.My do
   #       end
   #   end)
   # end
+  def evenDigitsOnly(n) do
+    n
+    |> Integer.digits()
+    |> Enum.all?(&(rem(&1, 2) == 0))
+  end
 end
