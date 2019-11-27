@@ -393,4 +393,7 @@ defmodule Backend.My do
     |> Integer.digits()
     |> Enum.all?(&(rem(&1, 2) == 0))
   end
+  def variableName(name) do
+    String.match?(name, ~r/^[_a-zA-Z]+[_a-zA-Z0-9]*$/)
+  end
 end
