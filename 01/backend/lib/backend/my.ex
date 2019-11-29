@@ -396,4 +396,7 @@ defmodule Backend.My do
   def variableName(name) do
     String.match?(name, ~r/^[_a-zA-Z]+[_a-zA-Z0-9]*$/)
   end
+  def alphabeticShift(inputString) do
+    Enum.zip(["a", "b"], ["b", "c"])
+  end
 end
