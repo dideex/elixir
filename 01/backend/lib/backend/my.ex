@@ -397,6 +397,11 @@ defmodule Backend.My do
     String.match?(name, ~r/^[_a-zA-Z]+[_a-zA-Z0-9]*$/)
   end
   def alphabeticShift(inputString) do
-    Enum.zip(["a", "b"], ["b", "c"])
+    alph = "abcdefghijklmnopqrstuvwxyz" |> String.split("", trim: true)
+    alph = Enum.zip(alph, tl(alph) ++ [hd(alph)])
+
+    Enum.find(alph, fn {x, _} -> x == "x" end)
+
+    # Enum.zip(["a", "b"], ["b", "c"])
   end
 end
