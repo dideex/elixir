@@ -400,8 +400,13 @@ defmodule Backend.My do
     alph = "abcdefghijklmnopqrstuvwxyz" |> String.split("", trim: true)
     alph = Enum.zip(alph, tl(alph) ++ [hd(alph)])
 
-    Enum.find(alph, fn {x, _} -> x == "x" end)
 
-    # Enum.zip(["a", "b"], ["b", "c"])
+    inputString
+    |> String.split("", trim: true)
+    |> Enum.map(fn letter ->
+      {_, x} = Enum.find(alph, fn {x, _} -> x == letter end)
+      x
+    end)
+    |> Enum.join()
   end
 end
