@@ -409,4 +409,9 @@ defmodule Backend.My do
     end)
     |> Enum.join()
   end
+  # def alphabeticShift(s), do: s
+  #   |> String.to_charlist
+  #   |> Enum.map(&(&1+1))
+  #   |> List.to_string
+  #   |> String.replace("{","a")
 end
