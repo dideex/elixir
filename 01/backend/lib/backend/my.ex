@@ -424,4 +424,5 @@ defmodule Backend.My do
     end)
     |> Enum.reduce(fn x, y -> x == y end)
   end
+  # def chessBoardCellColor(<<a,b>>, <<c,d>>), do: rem((a+b)-(c+d), 2) == 0
 end
