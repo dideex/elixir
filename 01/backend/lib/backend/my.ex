@@ -414,4 +414,14 @@ defmodule Backend.My do
   #   |> Enum.map(&(&1+1))
   #   |> List.to_string
   #   |> String.replace("{","a")
+  def chessBoardCellColor(cell1, cell2) do
+    [cell1, cell2]
+    |> Enum.map(fn pos ->
+      pos
+      |> String.to_charlist()
+      |> Enum.sum()
+      |> (&(rem(&1, 2))).()
+    end)
+    |> Enum.reduce(fn x, y -> x == y end)
+  end
 end
