@@ -426,6 +426,9 @@ defmodule Backend.My do
   end
   # def chessBoardCellColor(<<a,b>>, <<c,d>>), do: rem((a+b)-(c+d), 2) == 0
   def circleOfNumbers(n, firstNumber) do
-    rem(firstNumber + div(n, 2), n)
+    n
+    |> div(2)
+    |> (&(&1 + firstNumber)).()
+    |> rem(n)
   end
 end
