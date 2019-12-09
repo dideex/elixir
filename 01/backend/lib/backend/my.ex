@@ -431,4 +431,12 @@ defmodule Backend.My do
     |> (&(&1 + firstNumber)).()
     |> rem(n)
   end
+
+  def depositProfit(deposit, _rate, threshold) when deposit >= threshold, do: 0
+  def depositProfit(deposit, _rate, threshold, year) when deposit >= threshold, do: year
+  def depositProfit(deposit, rate, threshold), do: depositProfit(deposit, rate, threshold, 0)
+  def depositProfit(deposit, rate, threshold, year) do
+    depositProfit(deposit * rate * 0.01 + deposit, rate, threshold, year + 1)
+  end
+
 end
