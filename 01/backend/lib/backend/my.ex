@@ -439,4 +439,19 @@ defmodule Backend.My do
     depositProfit(deposit * rate * 0.01 + deposit, rate, threshold, year + 1)
   end
 
+  def absoluteValuesSumMinimization(a) do
+    {_sum, number} =
+      Enum.reduce(a, {nil, nil}, fn num, {prevSum, prevNum} ->
+        sum = a
+          |> Enum.map(&abs(&1 - num))
+          |> Enum.sum()
+        if sum > prevSum do
+          {prevSum, prevNum}
+        else
+          {sum, num}
+        end
+      end)
+    number
+  end
+
 end
