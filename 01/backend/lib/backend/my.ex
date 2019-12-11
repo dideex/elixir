@@ -453,5 +453,6 @@ defmodule Backend.My do
       end)
     number
   end
+  # def absoluteValuesSumMinimization(a), do: Enum.min_by(a, fn x -> a |> Enum.map(&(abs(&1-x))) |> Enum.sum end)
 
 end
