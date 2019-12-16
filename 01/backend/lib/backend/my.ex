@@ -455,14 +455,14 @@ defmodule Backend.My do
   end
   # def absoluteValuesSumMinimization(a), do: Enum.min_by(a, fn x -> a |> Enum.map(&(abs(&1-x))) |> Enum.sum end)
 
-  def stringsRearrangement([h | t]) do
+  def stringsRearrangement(input) do
+    array = input |> Enum.map(&String.split(&1, "", trim: true))
   end
+
   defp compareWords([h1 | t1], [h2 | t2], misses) do
     misses = if h1 == h2, do: misses, else: misses + 1
     compareWords(t1, t2, misses)
   end
-  defp compareWords([], [], misses) do
-    misses
-  end
+  defp compareWords([], [], misses), do: misses
 
 end
