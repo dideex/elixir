@@ -458,11 +458,12 @@ defmodule Backend.My do
   def stringsRearrangement(input) do
     array = input |> Enum.map(&String.split(&1, "", trim: true))
   end
-
+  defp shuffleArray(input) do
+    # [1,2,3,4] -> 1234 | 1243 | 1324 | 1342 | 1423 | 1432
+  end
   defp compareWords([h1 | t1], [h2 | t2], misses) do
     misses = if h1 == h2, do: misses, else: misses + 1
     compareWords(t1, t2, misses)
   end
   defp compareWords([], [], misses), do: misses
-
 end
