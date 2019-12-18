@@ -380,6 +380,7 @@ defmodule Backend.My do
       x -> x
     end)
   end
+
   # def arrayReplace(inputArray, elemToReplace, substitutionElem) do
   #   Enum.map(inputArray, fn i ->
   #       case i do
@@ -393,13 +394,14 @@ defmodule Backend.My do
     |> Integer.digits()
     |> Enum.all?(&(rem(&1, 2) == 0))
   end
+
   def variableName(name) do
     String.match?(name, ~r/^[_a-zA-Z]+[_a-zA-Z0-9]*$/)
   end
+
   def alphabeticShift(inputString) do
     alph = "abcdefghijklmnopqrstuvwxyz" |> String.split("", trim: true)
     alph = Enum.zip(alph, tl(alph) ++ [hd(alph)])
-
 
     inputString
     |> String.split("", trim: true)
@@ -409,6 +411,7 @@ defmodule Backend.My do
     end)
     |> Enum.join()
   end
+
   # def alphabeticShift(s), do: s
   #   |> String.to_charlist
   #   |> Enum.map(&(&1+1))
@@ -420,10 +423,11 @@ defmodule Backend.My do
       pos
       |> String.to_charlist()
       |> Enum.sum()
-      |> (&(rem(&1, 2))).()
+      |> (&rem(&1, 2)).()
     end)
     |> Enum.reduce(fn x, y -> x == y end)
   end
+
   # def chessBoardCellColor(<<a,b>>, <<c,d>>), do: rem((a+b)-(c+d), 2) == 0
   def circleOfNumbers(n, firstNumber) do
     n
@@ -435,6 +439,7 @@ defmodule Backend.My do
   def depositProfit(deposit, _rate, threshold) when deposit >= threshold, do: 0
   def depositProfit(deposit, _rate, threshold, year) when deposit >= threshold, do: year
   def depositProfit(deposit, rate, threshold), do: depositProfit(deposit, rate, threshold, 0)
+
   def depositProfit(deposit, rate, threshold, year) do
     depositProfit(deposit * rate * 0.01 + deposit, rate, threshold, year + 1)
   end
@@ -442,28 +447,45 @@ defmodule Backend.My do
   def absoluteValuesSumMinimization(a) do
     {_sum, number} =
       Enum.reduce(a, {nil, nil}, fn num, {prevSum, prevNum} ->
-        sum = a
+        sum =
+          a
           |> Enum.map(&abs(&1 - num))
           |> Enum.sum()
+
         if sum > prevSum do
           {prevSum, prevNum}
         else
           {sum, num}
         end
       end)
+
     number
   end
+
   # def absoluteValuesSumMinimization(a), do: Enum.min_by(a, fn x -> a |> Enum.map(&(abs(&1-x))) |> Enum.sum end)
 
   def stringsRearrangement(input) do
     array = input |> Enum.map(&String.split(&1, "", trim: true))
   end
-  defp shuffleArray(input) do
+
+  # [1, 2, 3] -> 123 | 132 | 213 | 231 | 312 | 321
+  def shuffleArray(input) do
+    input |> Enum.map(fn x -> [x | shuffleArray(input -- [x])] end)
     # [1,2,3,4] -> 1234 | 1243 | 1324 | 1342 | 1423 | 1432
   end
+  def shuffleArray([x]) do
+    x
+  end
+  def flatShuffledArray(ar) do
+    Enum.reduce(ar, [], fn [num, t], acc ->
+
+    end)
+  end
+
   defp compareWords([h1 | t1], [h2 | t2], misses) do
     misses = if h1 == h2, do: misses, else: misses + 1
     compareWords(t1, t2, misses)
   end
+
   defp compareWords([], [], misses), do: misses
 end
