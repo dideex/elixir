@@ -478,6 +478,7 @@ defmodule Backend.My do
   end
   def flatShuffledArray(ar) do
     Enum.reduce(ar, [], fn [num, t], acc ->
+      # [1, [2, [3]], [3, [2]]]
 
     end)
   end
