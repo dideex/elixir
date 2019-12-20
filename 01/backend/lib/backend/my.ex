@@ -469,17 +469,21 @@ defmodule Backend.My do
   end
 
   # [1, 2, 3] -> 123 | 132 | 213 | 231 | 312 | 321
-  def shuffleArray(input) do
-    input |> Enum.map(fn x -> [x | shuffleArray(input -- [x])] end)
+  def shuffleArray(input, head) do
+    input |> Enum.map(fn x -> [head | shuffleArray(input -- [x], x)] end)
+    # [1, [2, [3]], [3, [2]]]
     # [1,2,3,4] -> 1234 | 1243 | 1324 | 1342 | 1423 | 1432
   end
   def shuffleArray([x]) do
-    x
+    [x]
   end
-  def flatShuffledArray(ar) do
-    Enum.reduce(ar, [], fn [num, t], acc ->
-      # [1, [2, [3]], [3, [2]]]
-
+  def flatShuffledArray([]) do
+    []
+  end
+  def flatShuffledArray([h | t]) do
+    Enum.reduce(t, [], fn num, acc ->
+      IO.inspect(num)
+      [h | List.flatten(flatShuffledArray(t))]
     end)
   end
 
