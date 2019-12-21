@@ -464,33 +464,40 @@ defmodule Backend.My do
 
   # def absoluteValuesSumMinimization(a), do: Enum.min_by(a, fn x -> a |> Enum.map(&(abs(&1-x))) |> Enum.sum end)
 
+  # ["aba", "bbb", "bab"] -> false
+  # ["zzzzab", "zzzzbb", "zzzzaa"] -> true
   def stringsRearrangement(input) do
-    array = input |> Enum.map(&String.split(&1, "", trim: true))
-  end
-
-  # [1, 2, 3] -> 123 | 132 | 213 | 231 | 312 | 321
-  def shuffleArray(input, head) do
-    input |> Enum.map(fn x -> [head | shuffleArray(input -- [x], x)] end)
-    # [1, [2, [3]], [3, [2]]]
-    # [1,2,3,4] -> 1234 | 1243 | 1324 | 1342 | 1423 | 1432
-  end
-  def shuffleArray([x]) do
-    [x]
-  end
-  def flatShuffledArray([]) do
-    []
-  end
-  def flatShuffledArray([h | t]) do
-    Enum.reduce(t, [], fn num, acc ->
-      IO.inspect(num)
-      [h | List.flatten(flatShuffledArray(t))]
+    input
+    |> permutate()
+    |> Enum.map(fn str ->
+      str
+      |> Enum.map(&String.split(&1, "", trim: true))
+      |> (&Enum.zip(&1, tl(&1))).()
+      |> compareWords()
     end)
+    |> Enum.any?(fn x -> x |> Enum.all?(&(&1 == 1)) == true end)
   end
 
-  defp compareWords([h1 | t1], [h2 | t2], misses) do
+  def compareWords(t) do
+    t
+    |> IO.inspect()
+    |> Enum.map(fn {l, r} -> compareWords(l, r, 0) end)
+
+    # compareWords(l, r, 0)
+  end
+
+  def compareWords([h1 | t1], [h2 | t2], misses) do
     misses = if h1 == h2, do: misses, else: misses + 1
     compareWords(t1, t2, misses)
   end
 
-  defp compareWords([], [], misses), do: misses
+  def compareWords([], [], misses), do: misses
+
+  def permutate([]) do
+    [[]]
+  end
+
+  def permutate(list) do
+    for h <- list, t <- permutate(list -- [h]), do: [h | t]
+  end
 end
