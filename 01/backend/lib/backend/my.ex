@@ -511,4 +511,5 @@ defmodule Backend.My do
   def extractEachKth([], k, i, res) do
     res |> Enum.reverse()
   end
+  # def extractEachKth(a, k), do: Enum.drop_every(["" | a], k)
 end
