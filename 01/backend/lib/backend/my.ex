@@ -500,4 +500,15 @@ defmodule Backend.My do
   def permutate(list) do
     for h <- list, t <- permutate(list -- [h]), do: [h | t]
   end
+
+  def extractEachKth(inputArray, k) do
+    extractEachKth(inputArray, k, 1, [])
+  end
+  def extractEachKth([h | t], k, i, res) do
+    res = if rem(i, k) == 0, do: res, else: [h | res]
+    extractEachKth(t, k, i + 1, res)
+  end
+  def extractEachKth([], k, i, res) do
+    res |> Enum.reverse()
+  end
 end
