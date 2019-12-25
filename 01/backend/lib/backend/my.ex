@@ -504,12 +504,26 @@ defmodule Backend.My do
   def extractEachKth(inputArray, k) do
     extractEachKth(inputArray, k, 1, [])
   end
+
   def extractEachKth([h | t], k, i, res) do
     res = if rem(i, k) == 0, do: res, else: [h | res]
     extractEachKth(t, k, i + 1, res)
   end
+
   def extractEachKth([], k, i, res) do
     res |> Enum.reverse()
   end
+
   # def extractEachKth(a, k), do: Enum.drop_every(["" | a], k)
+
+  def firstDigit(inputString) do
+    inputString
+    |> String.split("", trim: true)
+    |> Enum.find(fn str ->
+      case Integer.parse(str) do
+        {_, ""} -> true
+        _ -> false
+      end
+    end)
+  end
 end
