@@ -526,4 +526,8 @@ defmodule Backend.My do
       end
     end)
   end
+
+  def differentSymbolsNaive(s) do
+    s |> String.split("", trim: true) |> Enum.uniq() |> length()
+  end
 end
