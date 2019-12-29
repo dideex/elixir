@@ -530,4 +530,5 @@ defmodule Backend.My do
   def differentSymbolsNaive(s) do
     s |> String.split("", trim: true) |> Enum.uniq() |> length()
   end
+  # def differentSymbolsNaive(s), do: s |> String.graphemes |> Enum.uniq |> length
 end
