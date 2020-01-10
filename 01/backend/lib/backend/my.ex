@@ -531,4 +531,12 @@ defmodule Backend.My do
     s |> String.split("", trim: true) |> Enum.uniq() |> length()
   end
   # def differentSymbolsNaive(s), do: s |> String.graphemes |> Enum.uniq |> length
+
+  def arrayMaxConsecutiveSum(inputArray, k) do
+    inputArray
+    |> Enum.chunk_every(k, 1)
+    |> IO.inspect()
+    |> Enum.map(&Enum.sum(&1))
+    |> Enum.max()
+  end
 end
