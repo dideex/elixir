@@ -539,4 +539,14 @@ defmodule Backend.My do
     |> Enum.map(&Enum.sum(&1))
     |> Enum.max()
   end
+  # def arrayMaxConsecutiveSum(inputArray, k) do
+  #   inputArray
+  #   |> Stream.drop(k - 1)
+  #   |> Stream.zip([0|inputArray])
+  #   |> Stream.scan(
+  #     inputArray |> Stream.take(k - 1) |> Enum.sum(),
+  #     fn {next_v, prev_v}, prev_sum -> prev_sum + next_v - prev_v end
+  #   )
+  #   |> Enum.max()
+  # end
 end
