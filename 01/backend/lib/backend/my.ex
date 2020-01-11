@@ -550,4 +550,9 @@ defmodule Backend.My do
   #   )
   #   |> Enum.max()
   # end
+
+  def growingPlant(upSpeed, downSpeed, desiredHeight), do: growingPlant(upSpeed, downSpeed, desiredHeight, 0)
+
+  def growingPlant(upSpeed, downSpeed, desiredHeight, days) when (upSpeed - downSpeed) * days + upSpeed >= desiredHeight, do: days + 1
+  def growingPlant(upSpeed, downSpeed, desiredHeight, days), do: growingPlant(upSpeed, downSpeed, desiredHeight, days + 1)
 end
