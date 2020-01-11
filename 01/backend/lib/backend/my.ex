@@ -555,4 +555,8 @@ defmodule Backend.My do
 
   def growingPlant(upSpeed, downSpeed, desiredHeight, days) when (upSpeed - downSpeed) * days + upSpeed >= desiredHeight, do: days + 1
   def growingPlant(upSpeed, downSpeed, desiredHeight, days), do: growingPlant(upSpeed, downSpeed, desiredHeight, days + 1)
+  # def growingPlant(upSpeed, _, desiredHeight) when upSpeed >= desiredHeight, do: 1
+  # def growingPlant(upSpeed, downSpeed, desiredHeight) do
+  #     1 + growingPlant(upSpeed, downSpeed, desiredHeight - upSpeed + downSpeed)
+  # end
 end
