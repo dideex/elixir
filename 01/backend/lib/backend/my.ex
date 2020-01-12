@@ -559,4 +559,14 @@ defmodule Backend.My do
   # def growingPlant(upSpeed, downSpeed, desiredHeight) do
   #     1 + growingPlant(upSpeed, downSpeed, desiredHeight - upSpeed + downSpeed)
   # end
+
+  def knapsackLight(value1, weight1, value2, weight2, maxW) do
+    cond do
+      weight1 + weight2 <= maxW -> value1 + value2
+      max(weight1, weight2) <= maxW -> max(value1, value2)
+      weight1 <= maxW -> value1
+      weight2 <= maxW -> value2
+      true -> 0
+    end
+  end
 end
