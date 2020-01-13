@@ -569,4 +569,17 @@ defmodule Backend.My do
       true -> 0
     end
   end
+
+  # def longestDigitsPrefix(inputString) do
+  #   case Integer.parse(inputString) do
+  #     {num, _} -> Integer.to_string(num)
+  #     :error -> ""
+  #   end
+  # end
+  def longestDigitsPrefix(inputString) do
+    case Regex.run(~r/^\d+/, inputString) do
+      [num] -> num
+      nil -> ""
+    end
+  end
 end
