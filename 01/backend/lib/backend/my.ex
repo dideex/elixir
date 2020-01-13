@@ -582,4 +582,5 @@ defmodule Backend.My do
       nil -> ""
     end
   end
+  # def longestDigitsPrefix(s), do: s |> Regex.run(~r/^\d*/, s) |> hd()
 end
