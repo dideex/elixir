@@ -583,4 +583,12 @@ defmodule Backend.My do
     end
   end
   # def longestDigitsPrefix(s), do: s |> Regex.run(~r/^\d*/, s) |> hd()
+
+  def digitDegree(n) do
+    n = Integer.digits(n)
+    case length(n) do
+      1 -> 0
+      _ -> 1 + digitDegree(Enum.sum(n))
+    end
+  end
 end
