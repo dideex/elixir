@@ -591,4 +591,8 @@ defmodule Backend.My do
       _ -> 1 + digitDegree(Enum.sum(n))
     end
   end
+
+  def bishopAndPawn(<<b1, b2>>, <<p1, p2>>) do
+    abs(b1 - p1) == abs(b2 - p2)
+  end
 end
