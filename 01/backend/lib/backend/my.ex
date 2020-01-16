@@ -595,4 +595,13 @@ defmodule Backend.My do
   def bishopAndPawn(<<b1, b2>>, <<p1, p2>>) do
     abs(b1 - p1) == abs(b2 - p2)
   end
+
+  def isBeautifulString(inputString) do
+    inputString = inputString |> String.graphemes()
+    inputString
+    |> Enum.uniq()
+    |> Enum.sort()
+    |> Enum.map(&Enum.count(inputString, fn letter -> letter == &1 end))
+    # |> Enum.map(fn letter -> {letter, &Enum.count(inputString, & &1 == letter)} end)
+  end
 end
