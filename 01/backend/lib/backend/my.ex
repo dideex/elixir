@@ -597,11 +597,12 @@ defmodule Backend.My do
   end
 
   def isBeautifulString(inputString) do
-    inputString = inputString |> String.graphemes()
-    inputString
-    |> Enum.uniq()
-    |> Enum.sort()
-    |> Enum.map(&Enum.count(inputString, fn letter -> letter == &1 end))
-    # |> Enum.map(fn letter -> {letter, &Enum.count(inputString, & &1 == letter)} end)
+    inputString = inputString
+    |> String.graphemes()
+
+    97..122
+    |> Enum.map(&Enum.count(inputString, fn letter -> letter == <<&1>> end))
+    |> (&Enum.zip(&1, tl(&1))).()
+    |> Enum.all?(fn {a, b} -> a >= b end)
   end
 end
