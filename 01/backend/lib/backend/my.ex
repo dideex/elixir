@@ -605,4 +605,8 @@ defmodule Backend.My do
     |> (&Enum.zip(&1, tl(&1))).()
     |> Enum.all?(fn {a, b} -> a >= b end)
   end
+  # def isBeautifulString(s) do
+  #   letter_counts = for n <- ?z..?a, do: Enum.count(to_charlist(s), &(&1==n))
+  #   letter_counts == Enum.sort(letter_counts)
+  # end
 end
