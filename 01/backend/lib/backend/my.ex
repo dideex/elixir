@@ -609,4 +609,10 @@ defmodule Backend.My do
   #   letter_counts = for n <- ?z..?a, do: Enum.count(to_charlist(s), &(&1==n))
   #   letter_counts == Enum.sort(letter_counts)
   # end
+
+  def findEmailDomain(address) do
+    address
+    |> String.split("@", trim: true)
+    |> List.last()
+  end
 end
