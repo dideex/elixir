@@ -615,4 +615,22 @@ defmodule Backend.My do
     |> String.split("@", trim: true)
     |> List.last()
   end
+
+  def time_to_integer(time) do
+    Time.diff(time, ~T[00:00:00])
+  end
+
+  def compare_time(from, to) do
+    # [from, to, now] = [from, to, Time.utc_now()] |> Enum.map(&time_to_integer/1)
+    with now  <- time_to_integer(Time.utc_now()),
+         from <- time_to_integer(from),
+         to   <- time_to_integer(to) do
+      case from > to do
+        false -> now >= from and to >= now
+        true  -> to >= now or now >= from
+      end
+    else
+      _ -> {:error, :wrong_time_format}
+    end
+  end
 end
