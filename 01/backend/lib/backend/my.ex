@@ -644,6 +644,10 @@ defmodule Backend.My do
       _ -> buildPalindrome(st, i + 1)
     end
   end
+  # def buildPalindrome(s), do: build(s, s, "")
+  # def build(a, <<h::binary-size(1), t::binary>>, c) do
+  #     if palindrome?(a <> c), do: a <> c, else: build(a, t, h <> c)
+  # end
 
   def is_palindrome?(w), do: w == String.reverse(w)
 end
