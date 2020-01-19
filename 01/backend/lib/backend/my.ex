@@ -633,4 +633,17 @@ defmodule Backend.My do
       _ -> {:error, :wrong_time_format}
     end
   end
+
+  def buildPalindrome(st), do: buildPalindrome(st, 0)
+  def buildPalindrome(st, i) when i <= 20 do
+    with tail <- st |> String.slice(0, i) |> String.reverse(),
+         word <- st <> tail,
+         true <- is_palindrome?(word) do
+      word
+    else
+      _ -> buildPalindrome(st, i + 1)
+    end
+  end
+
+  def is_palindrome?(w), do: w == String.reverse(w)
 end
