@@ -650,4 +650,14 @@ defmodule Backend.My do
   # end
 
   def is_palindrome?(w), do: w == String.reverse(w)
+
+  def electionsWinners(votes, 0) do
+    if votes |> Enum.filter(& &1 == Enum.max(votes)) |> length() == 1, do: 1, else: 0
+  end
+  def electionsWinners(votes, k) do
+    max = Enum.max(votes)
+    votes
+    |> Enum.filter(& &1 + k > max)
+    |> length()
+  end
 end
