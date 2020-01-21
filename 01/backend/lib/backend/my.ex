@@ -663,16 +663,10 @@ defmodule Backend.My do
 
   def isMAC48Address(inputString) do
     with [_, _, _, _, _, _] = str <- String.split(inputString, "-"),
-         true <- Enum.all?(str, fn
-              <<f, s>> -> is_code_16(f) and is_code_16(s)
-              _ -> false
-            end) do
+         true <- Enum.all?(str, fn s -> s |> String.to_integer(16) |> (& &1 >= 0 and 255 >= &1).() end) do
         true
       else
         _ -> false
     end
-  end
-  defp is_code_16(char) do
-    char in ?0..?9 or char in ?A..?F
   end
 end
