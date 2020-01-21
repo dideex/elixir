@@ -660,4 +660,19 @@ defmodule Backend.My do
     |> Enum.filter(& &1 + k > max)
     |> length()
   end
+
+  def isMAC48Address(inputString) do
+    with [_, _, _, _, _, _] = str <- String.split(inputString, "-"),
+         true <- Enum.all?(str, fn
+              <<f, s>> -> is_code_16(f) and is_code_16(s)
+              _ -> false
+            end) do
+        true
+      else
+        _ -> false
+    end
+  end
+  defp is_code_16(char) do
+    char in ?0..?9 or char in ?A..?F
+  end
 end
