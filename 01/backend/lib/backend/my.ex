@@ -669,4 +669,11 @@ defmodule Backend.My do
         _ -> false
     end
   end
+
+  def isDigit(symbol) do
+    case Integer.parse(symbol) do
+      :error -> false
+      _ -> true
+    end
+  end
 end
