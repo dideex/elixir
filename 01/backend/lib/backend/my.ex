@@ -676,4 +676,6 @@ defmodule Backend.My do
       _ -> true
     end
   end
+
+  # def isDigit(<<c>>), do: c in ?0..?9
 end
