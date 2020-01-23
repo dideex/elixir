@@ -678,4 +678,10 @@ defmodule Backend.My do
   end
 
   # def isDigit(<<c>>), do: c in ?0..?9
+
+  def lineEncoding(s) do
+    s
+    |> String.graphemes()
+    |> Enum.group_by(fn x -> x end)
+  end
 end
