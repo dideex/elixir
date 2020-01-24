@@ -682,13 +682,7 @@ defmodule Backend.My do
   def lineEncoding(s) do
     s
     |> String.graphemes()
-    |> Enum.reduce([], fn
-        let, [h | _] = acc when let != h -> [let | [ " " | acc]]
-        let, acc                         -> [let | acc]
-      end)
-    |> Enum.reverse()
-    |> Enum.chunk_by(& &1 == " ")
-    |> Enum.filter(& &1 != [" "])
+    |> Enum.chunk_by(& &1)
     |> Enum.map(fn
       [l]           -> l
       [l | _] = arr -> "#{length(arr)}#{l}"
