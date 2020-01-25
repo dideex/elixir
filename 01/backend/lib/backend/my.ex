@@ -689,4 +689,15 @@ defmodule Backend.My do
      end)
     |> Enum.join("")
   end
+
+  def chessKnight(<<h, v>>) do
+    atom_map = {:a, :b, :c, :d, :d, :c, :b, :a}
+    knight_map = %{
+      c: %{a: 4, b: 6, c: 8, d: 8},
+      d: %{a: 4, b: 6, c: 8, d: 8},
+      b: %{a: 3, b: 4, c: 6, d: 6},
+      a: %{a: 2, b: 3, c: 4, d: 4},
+    }
+    knight_map[elem(atom_map, h - 97)][elem(atom_map, v - 49)]
+  end
 end
