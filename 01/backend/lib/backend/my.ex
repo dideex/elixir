@@ -700,4 +700,16 @@ defmodule Backend.My do
     }
     knight_map[elem(atom_map, h - 97)][elem(atom_map, v - 49)]
   end
+
+  def deleteDigit(n) do
+    nums = Integer.digits(n)
+
+    nums
+    |> Enum.map(&
+      nums -- [&1]
+      |> Enum.join("")
+      |> String.to_integer()
+    )
+    |> Enum.max()
+  end
 end
