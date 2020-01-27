@@ -705,11 +705,7 @@ defmodule Backend.My do
     nums = Integer.digits(n)
 
     nums
-    |> Enum.map(&
-      nums -- [&1]
-      |> Enum.join("")
-      |> String.to_integer()
-    )
+    |> Enum.map(& Integer.undigits(nums -- [&1]))
     |> Enum.max()
   end
 end
