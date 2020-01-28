@@ -708,4 +708,12 @@ defmodule Backend.My do
     |> Enum.map(& Integer.undigits(nums -- [&1]))
     |> Enum.max()
   end
+
+  def longestWord(text) do
+    ~r/[a-z]+/i
+    |> Regex.scan(text)
+    |> Enum.reduce("", fn
+      [word], acc -> if String.length(word) > String.length(acc), do: word, else: acc
+    end)
+  end
 end
