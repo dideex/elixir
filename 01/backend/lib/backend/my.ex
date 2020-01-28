@@ -716,4 +716,5 @@ defmodule Backend.My do
       [word], acc -> if String.length(word) > String.length(acc), do: word, else: acc
     end)
   end
+  # def longestWord(s), do: s |> String.split(~r/[^a-zA-Z]/) |> Enum.max_by(&String.length/1)
 end
