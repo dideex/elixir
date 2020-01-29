@@ -717,4 +717,11 @@ defmodule Backend.My do
     end)
   end
   # def longestWord(s), do: s |> String.split(~r/[^a-z]/i) |> Enum.max_by(&String.length/1)
+
+  def validTime(time) do
+    case Time.from_iso8601("#{time}:00") do
+      {:ok, _} -> true
+      _        -> false
+    end
+  end
 end
