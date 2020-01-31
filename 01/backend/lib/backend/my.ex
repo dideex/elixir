@@ -724,4 +724,11 @@ defmodule Backend.My do
       _        -> false
     end
   end
+
+  def sumUpNumbers(inputString) do
+    ~r/\d+/
+    |> Regex.scan(inputString)
+    |> Enum.map(& &1 |> hd() |> String.to_integer())
+    |> Enum.sum()
+  end
 end
