@@ -731,4 +731,12 @@ defmodule Backend.My do
     |> Enum.map(& &1 |> hd() |> String.to_integer())
     |> Enum.sum()
   end
+
+  def differentSquares(matrix) do
+
+  end
+
+  def extract_not_last([_]),                     do: []
+  def extract_not_last([h | t]) when is_list(h), do: [extract_not_last(h) | extract_not_last(t)]
+  def extract_not_last([h | t]),                 do: [h | extract_not_last(t)]
 end
