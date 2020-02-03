@@ -733,7 +733,20 @@ defmodule Backend.My do
   end
 
   def differentSquares(matrix) do
+    map = [[0, 0], [0, 1], [1, 0], [1, 1]]
 
+    0..length(matrix) - 2
+    |> Enum.map(fn x ->
+      row = Enum.at(matrix, x)
+      0..length(row) - 2
+      |> Enum.map(fn y ->
+        Enum.map(map, fn [xx, yy] ->
+          matrix
+          |> Enum.at(xx + x)
+          |> Enum.at(yy + y)
+        end)
+      end)
+    end)
   end
 
   def extract_not_last([_]),                     do: []
