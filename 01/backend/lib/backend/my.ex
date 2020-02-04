@@ -735,21 +735,29 @@ defmodule Backend.My do
   def differentSquares(matrix) do
     map = [[0, 0], [0, 1], [1, 0], [1, 1]]
 
-    0..length(matrix) - 2
-    |> Enum.map(fn x ->
-      row = Enum.at(matrix, x)
-      0..length(row) - 2
-      |> Enum.map(fn y ->
-        Enum.map(map, fn [xx, yy] ->
-          matrix
-          |> Enum.at(xx + x)
-          |> Enum.at(yy + y)
+    try do
+      if length(hd(matrix)) == 1 do
+        raise 0
+      end
+
+      0..length(matrix) - 2
+      |> Enum.map(fn x ->
+        row = Enum.at(matrix, x)
+        0..length(row) - 2
+        |> Enum.map(fn y ->
+          Enum.map(map, fn [xx, yy] ->
+            matrix
+            |> Enum.at(xx + x)
+            |> Enum.at(yy + y)
+          end)
         end)
       end)
-    end)
+      |> List.flatten()
+      |> Enum.chunk_every(4)
+      |> Enum.uniq()
+      |> length()
+    rescue
+      _ -> 0
+    end
   end
-
-  def extract_not_last([_]),                     do: []
-  def extract_not_last([h | t]) when is_list(h), do: [extract_not_last(h) | extract_not_last(t)]
-  def extract_not_last([h | t]),                 do: [h | extract_not_last(t)]
 end
