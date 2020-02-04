@@ -760,4 +760,9 @@ defmodule Backend.My do
       _ -> 0
     end
   end
+
+  # def differentSquares(matrix), do: all_squares(matrix) |> Enum.uniq |> Enum.count
+  # def all_squares(m), do: m |> Enum.map(&all_pairs/1) |> all_pairs |> Enum.map(&Enum.zip/1) |> List.flatten
+  # def all_pairs(list), do: Enum.zip(list, tl(list)) |> Enum.map(&Tuple.to_list/1)
+
 end
