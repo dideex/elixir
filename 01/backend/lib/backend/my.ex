@@ -765,4 +765,25 @@ defmodule Backend.My do
   # def all_squares(m), do: m |> Enum.map(&all_pairs/1) |> all_pairs |> Enum.map(&Enum.zip/1) |> List.flatten
   # def all_pairs(list), do: Enum.zip(list, tl(list)) |> Enum.map(&Tuple.to_list/1)
 
+  def digitsProduct(0), do: 10
+  def digitsProduct(1), do: 1
+  def digitsProduct(p) do
+    case find_product(p) do
+      [_ | _] = arr -> arr |> Enum.reverse() |> Enum.join("") |> String.to_integer()
+      _             -> -1
+    end
+  end
+
+  def find_product(product) do
+    case get_num(product) do
+      -1     -> -1
+      {1, d} -> [d]
+      {p, d} -> [d | find_product(p)]
+    end
+  end
+
+  def get_num(num, d \\ 9)
+  def get_num(num, d) when d == 1, do: -1
+  def get_num(num, d) when rem(num, d) == 0, do: {div(num, d), d}
+  def get_num(num, d), do: get_num(num, d - 1)
 end
