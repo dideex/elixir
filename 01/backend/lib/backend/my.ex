@@ -769,16 +769,23 @@ defmodule Backend.My do
   def digitsProduct(1), do: 1
   def digitsProduct(p) do
     case find_product(p) do
-      [_ | _] = arr -> arr |> Enum.reverse() |> Enum.join("") |> String.to_integer()
+      [_ | _] = arr -> convert_to_number(arr)
       _             -> -1
     end
   end
 
   def find_product(product) do
     case get_num(product) do
-      -1     -> -1
+      -1     -> [-1]
       {1, d} -> [d]
       {p, d} -> [d | find_product(p)]
+    end
+  end
+
+  defp convert_to_number(arr) do
+    case Enum.any?(arr, & &1 == -1) do
+      false -> arr |> Enum.reverse() |> Enum.join("") |> String.to_integer()
+      _     -> -1
     end
   end
 
