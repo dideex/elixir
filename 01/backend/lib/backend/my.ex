@@ -793,4 +793,24 @@ defmodule Backend.My do
   def get_num(num, d) when d == 1, do: -1
   def get_num(num, d) when rem(num, d) == 0, do: {div(num, d), d}
   def get_num(num, d), do: get_num(num, d - 1)
+
+  def fileNaming(names) do
+    Enum.reduce(names, [], fn
+      name, acc when name in [acc] -> [name <> count_names(name, acc) | acc]
+      name, acc                  -> [name | acc]
+    end)
+  end
+
+  def count_names(name, names) do
+    n =
+      names
+      |> Enum.reduce(0, fn
+          word, 0 when word == name                    -> 1
+          word, count when word == "#{name}(#{count})" -> count + 1
+          _, count                                     -> count
+        end)
+    |> (&("(#{&1})")).()
+  end
 end
+# ["a(1)", "a(6)", "a", "a", "a", "a", "a", "a", "a", "a", "a", "a"]
+# ["a(1)", "a(6)", "a", "a(2)", "a(3)", "a(4)", "a(5)", "a(7)", "a(8)", "a(9)", "a(10)", "a(11)"]
