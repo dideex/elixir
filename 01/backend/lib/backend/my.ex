@@ -827,4 +827,8 @@ defmodule Backend.My do
     |> Enum.map(fn c -> <<c>> end)
     |> Enum.join("")
   end
+
+  # def messageFromBinaryCode(code) do
+  #   for <<x :: binary - 8 <- code>>, do: Integer.parse(x, 2) |> elem(0)
+  # end
 end
