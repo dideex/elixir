@@ -831,4 +831,22 @@ defmodule Backend.My do
   # def messageFromBinaryCode(code) do
   #   for <<x :: binary - 8 <- code>>, do: Integer.parse(x, 2) |> elem(0)
   # end
+
+  def spiralNumbers(n) do
+
+  end
+
+  def build_a_circle(m, cur, {x, y}, n) do
+    row = Enum.at(m, y)
+    Enum.reduce(x..n, cur, fn x ->
+
+    end)
+  end
+
+  # https://elixirforum.com/t/tensor-the-vector-matrix-tensor-library-has-reached-v1-0/2921
+  # def rotate_clockwise(matrix) do
+  #   matrix
+  #   |> flip_vertical
+  #   |> transpose
+  # end
 end
