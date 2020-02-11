@@ -842,6 +842,22 @@ defmodule Backend.My do
 
     end)
   end
+#   [[1,2,3],
+#    [8,9,4],
+#    [7,6,5]]
+
+#   [[8],
+#    [9]]
+
+#   [[7, 8],
+#    [6, 9]]
+
+#   [[6, 7],
+#    [9, 8]]
+
+#   [[5, 6, 7],
+#    [4, 9, 8],
+#    [3, ]]
 
   # https://elixirforum.com/t/tensor-the-vector-matrix-tensor-library-has-reached-v1-0/2921
   # def rotate_clockwise(matrix) do
