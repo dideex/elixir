@@ -843,37 +843,32 @@ defmodule Backend.My do
     end)
   end
 
-  def build_a_circle(m, cur, {x, y}, n) do
-    row = Enum.at(m, y)
-    Enum.reduce(x..n, cur, fn x ->
-
-    end)
+  def create_a_circle(matrix, x, y, current, limit) do
+    {x, y, number, matrix} = create_a_row(matrix, current, x, y, limit)
+    {x, y, number, matrix} = create_a_col(matrix, number, x, y + 1, limit)
+    {x, y, number, matrix} = create_a_row(matrix, number, limit - 1, y, x - limit + 1)
+    {x, y, number, matrix} = create_a_col(matrix, number, x, limit - 1, y - limit + 2)
   end
-#   [[1,2,3],
-#    [8,9,4],
-#    [7,6,5]]
 
-# {"1:1" => 1, "1:2" => 2, "1:3" => 3,
-#  "2:1" => 8, "2:2" => 9, "2:3" => 4,
-#  "3:1" => 7, "3:2" => 6, "3:3" => 5,}
+  def create_a_row(matrix, current, x, y, limit) do
+    {x, y, current, matrix} =
+      Enum.reduce(x..limit, {x, y, current, matrix}, fn x, {_, _, current, matrix} ->
+        {x, y, current + 1, Map.put(matrix, "#{y}:#{x}", current)}
+      end)
+  end
 
-#   [[8],
-#    [9]]
+  def create_a_col(matrix, current, x, y, limit) do
+    {x, y, current, matrix} =
+      Enum.reduce(y..limit, {x, y, current, matrix}, fn y, {_, _, current, matrix} ->
+        {x, y, current + 1, Map.put(matrix, "#{y}:#{x}", current)}
+      end)
+  end
 
-#   [[7, 8],
-#    [6, 9]]
+  # {"1:1" => 1, "1:2" => 2, "1:3" => 3,
+  #  "2:1" => 8, "2:2" => 9, "2:3" => 4,
+  #  "3:1" => 7, "3:2" => 6, "3:3" => 5,}
 
-#   [[6, 7],
-#    [9, 8]]
-
-#   [[5, 6, 7],
-#    [4, 9, 8],
-#    [3, ]]
-
-  # https://elixirforum.com/t/tensor-the-vector-matrix-tensor-library-has-reached-v1-0/2921
-  # def rotate_clockwise(matrix) do
-  #   matrix
-  #   |> flip_vertical
-  #   |> transpose
-  # end
+  #   [[1,2,3],
+  #    [8,9,4],
+  #    [7,6,5]]
 end
