@@ -844,25 +844,21 @@ defmodule Backend.My do
   end
 
   def create_a_circle(matrix, x, y, current, limit) do
-    {x, y, number, matrix} = create_a_row(matrix, current, x, y, limit)
-    {x, y, number, matrix} = create_a_col(matrix, number, x, y + 1, limit)
-    {x, y, number, matrix} = create_a_row(matrix, number, limit - 1, y, x - limit + 1)
-    {x, y, number, matrix} = create_a_col(matrix, number, x, limit - 1, y - limit + 2)
+    {x, y, number, matrix} = create_line(matrix, current, x, y, limit, &by_x/2)
+    {x, y, number, matrix} = create_line(matrix, number, y + 1, x, limit, &by_y/2)
+    {x, y, number, matrix} = create_line(matrix, number, limit - 1, y, x - limit + 1, &by_x/2)
+    {x, y, number, matrix} = create_line(matrix, number, limit - 1, x, y - limit + 2, &by_y/2)
   end
 
-  def create_a_row(matrix, current, x, y, limit) do
+  def create_line(matrix, current, x, y, limit, render_key) do
     {x, y, current, matrix} =
       Enum.reduce(x..limit, {x, y, current, matrix}, fn x, {_, _, current, matrix} ->
-        {x, y, current + 1, Map.put(matrix, "#{y}:#{x}", current)}
+        {x, y, current + 1, Map.put(matrix, render_key.(y, x), current)}
       end)
   end
 
-  def create_a_col(matrix, current, x, y, limit) do
-    {x, y, current, matrix} =
-      Enum.reduce(y..limit, {x, y, current, matrix}, fn y, {_, _, current, matrix} ->
-        {x, y, current + 1, Map.put(matrix, "#{y}:#{x}", current)}
-      end)
-  end
+  defp by_x(x, y), do: "#{x}:#{y}"
+  defp by_y(x, y), do: "#{y}:#{x}"
 
   # {"1:1" => 1, "1:2" => 2, "1:3" => 3,
   #  "2:1" => 8, "2:2" => 9, "2:3" => 4,
