@@ -832,17 +832,13 @@ defmodule Backend.My do
   #   for <<x :: binary - 8 <- code>>, do: Integer.parse(x, 2) |> elem(0)
   # end
 
-  @map %{"1:1" => 1, "1:2" => 2, "1:3" => 3,
-        "2:1" => 8, "2:2" => 9, "2:3" => 4,
-        "3:1" => 7, "3:2" => 6, "3:3" => 5,}
   def spiralNumbers(n) do
-    # Enum.map(1..n, fn x ->
-    #   Enum.map(1..n, fn y ->
-    #     Map.get(@map, "#{x}:#{y}")
-    #   end)
-    # end)
-    map = %{}
-    create_matrix(map, 1, 1, 1, n)
+    map = create_matrix(%{}, 1, 1, 1, n)
+    Enum.map(1..n, fn x ->
+      Enum.map(1..n, fn y ->
+        Map.get(map, by_x(x, y))
+      end)
+    end)
   end
 
   def create_matrix(matrix, x, y, current, 1) do
