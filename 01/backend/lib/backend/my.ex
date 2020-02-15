@@ -836,26 +836,44 @@ defmodule Backend.My do
         "2:1" => 8, "2:2" => 9, "2:3" => 4,
         "3:1" => 7, "3:2" => 6, "3:3" => 5,}
   def spiralNumbers(n) do
-    Enum.map(1..n, fn x ->
-      Enum.map(1..n, fn y ->
-        Map.get(@map, "#{x}:#{y}")
-      end)
-    end)
+    # Enum.map(1..n, fn x ->
+    #   Enum.map(1..n, fn y ->
+    #     Map.get(@map, "#{x}:#{y}")
+    #   end)
+    # end)
+    map = %{}
+    create_matrix(map, 1, 1, 1, n)
   end
 
-  def create_a_circle(matrix, x, y, current, limit) do
+  def create_matrix(matrix, x, y, current, 1) do
+    Map.put(matrix, by_y(x, y), current)
+  end
+  def create_matrix(matrix, x, y, current, 2) do
+    matrix
+    |> Map.put(by_y(x, y), current)
+    |> Map.put(by_y(x + 1, y), current + 1)
+    |> Map.put(by_y(x + 1, y + 1), current + 2)
+    |> Map.put(by_y(x, y + 1), current + 3)
+  end
+  def create_matrix(matrix, x, y, current, a_limit) do
+    limit = a_limit + x - 1
     {x, y, number, matrix} = create_line(matrix, current, x, y, limit, &by_x/2)
     {x, y, number, matrix} = create_line(matrix, number, y + 1, x, limit, &by_y/2)
-    {x, y, number, matrix} = create_line(matrix, number, limit - 1, y, x - limit + 1, &by_x/2)
-    {x, y, number, matrix} = create_line(matrix, number, limit - 1, x, y - limit + 2, &by_y/2)
+    {x, y, number, matrix} = create_line(matrix, number, limit - 1, y, x - a_limit + 1, &by_x/2)
+    {x, y, number, matrix} = create_line(matrix, number, limit - 1, x, y - a_limit + 2, &by_y/2)
+    create_matrix(matrix, x, y + 1, number, a_limit - 2)
   end
 
-  def create_line(matrix, current, x, y, limit, render_key) do
+  def create_line(matrix, current, x, y, limit, gen_key) do
     {x, y, current, matrix} =
       Enum.reduce(x..limit, {x, y, current, matrix}, fn x, {_, _, current, matrix} ->
-        {x, y, current + 1, Map.put(matrix, render_key.(y, x), current)}
+        {x, y, current + 1, Map.put(matrix, gen_key.(y, x), current)}
       end)
   end
+
+  # "2:2" => 17,  "2:3" => 18,  "2:4" => 19,
+  # "3:2" => 24,  "3:3" => 25,  "3:4" => 20,
+  # "4:2" => 23,  "4:3" => 22,  "4:4" => 21,
 
   defp by_x(x, y), do: "#{x}:#{y}"
   defp by_y(x, y), do: "#{y}:#{x}"
@@ -863,6 +881,17 @@ defmodule Backend.My do
   # {"1:1" => 1, "1:2" => 2, "1:3" => 3,
   #  "2:1" => 8, "2:2" => 9, "2:3" => 4,
   #  "3:1" => 7, "3:2" => 6, "3:3" => 5,}
+
+  # {"1:1" => 1,  "1:2" => 2,  "1:3" => 3,  "1:4" => 4,
+  #  "2:1" => 12, "2:2" => 13, "2:3" => 14, "2:4" => 5,
+  #  "3:1" => 11, "3:2" => 16, "3:3" => 15, "3:4" => 6,
+  #  "4:1" => 10, "4:2" => 9,  "4:3" => 8,  "4:4" => 7}
+
+  # {"1:1" => 1,   "1:2" => 2,   "1:3" => 3,   "1:4" => 4,  "1:5" => 5,
+  # {"2:1" => 16,  "2:2" => 17,  "2:3" => 18,  "2:4" => 19, "2:5" => 6,
+  # {"3:1" => 15,  "3:2" => 24,  "3:3" => 25,  "3:4" => 20, "3:5" => 7,
+  # {"4:1" => 14,  "4:2" => 23,  "4:3" => 22,  "4:4" => 21, "4:5" => 8,
+  # {"5:1" => 13,  "5:2" => 12,  "5:3" => 11,  "5:4" => 10, "5:5" => 9,
 
   #   [[1,2,3],
   #    [8,9,4],
