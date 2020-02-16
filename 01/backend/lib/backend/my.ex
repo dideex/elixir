@@ -832,14 +832,14 @@ defmodule Backend.My do
   #   for <<x :: binary - 8 <- code>>, do: Integer.parse(x, 2) |> elem(0)
   # end
 
-  def spiralNumbers(n) do
-    map = create_matrix(%{}, 1, 1, 1, n)
-    Enum.map(1..n, fn x ->
-      Enum.map(1..n, fn y ->
-        Map.get(map, by_x(x, y))
-      end)
-    end)
-  end
+  # def spiralNumbers(n) do
+  #   map = create_matrix(%{}, 1, 1, 1, n)
+  #   Enum.map(1..n, fn x ->
+  #     Enum.map(1..n, fn y ->
+  #       Map.get(map, by_x(x, y))
+  #     end)
+  #   end)
+  # end
 
   def create_matrix(matrix, x, y, current, 1) do
     Map.put(matrix, by_y(x, y), current)
@@ -870,11 +870,19 @@ defmodule Backend.My do
   defp by_x(x, y), do: "#{x}:#{y}"
   defp by_y(x, y), do: "#{y}:#{x}"
 
+  def spiralNumbers(2), do: [[1, 2],[4, 3]]
   # def spiralNumbers(3), do: [[1,2,3],[8,9,4],[7,6,5]]
-  # def spiralNumbers(n) do
-  #     spiralNumbers(n-1) |> Enum.reverse
-  #     |> Stream.with_index(n+1)
-  #     |> Enum.map(fn {a,b} -> (Enum.map(a,&(&1+2*n-1)) |> Enum.reverse)++[b] end)
-  #     |> List.insert_at(0, (for i <- 1..n, do: i))
-  # end
+  def spiralNumbers(n) do
+      spiralNumbers(n-1)
+      |> Enum.reverse
+      |> Stream.with_index(n+1) |> IO.inspect()
+      |> Enum.map(fn {a,b} ->
+          res = (Enum.map(a,&(&1+2*n-1)) |> Enum.reverse)++[b]
+          res
+          |> Enum.map(&inspect(&1, charlists: :as_list))
+          |> IO.inspect(label: ARRAY)
+          res
+        end)
+      |> List.insert_at(0, (for i <- 1..n, do: i))
+  end
 end
