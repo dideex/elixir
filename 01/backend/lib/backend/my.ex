@@ -885,4 +885,30 @@ defmodule Backend.My do
         end)
       |> List.insert_at(0, (for i <- 1..n, do: i))
   end
+
+def sudoku(grid) do
+  [[a1, b1, c1],
+    [a2, b2, c2],
+    [a3, b3, c3],
+    [d1, f1, g1],
+    [d2, f2, g2],
+    [d3, f3, g3],
+    [h1, i1, j1],
+    [h2, i2, j2],
+    [h3, i3, j3]] =
+    Enum.map(grid, &Enum.chunk_every(&1, 3))
+  a = a1 ++ a2 ++ a3
+  b = b1 ++ b2 ++ b3
+  c = c1 ++ c2 ++ c3
+  d = d1 ++ d2 ++ d3
+  f = f1 ++ f2 ++ f3
+  g = g1 ++ g2 ++ g3
+  h = h1 ++ h2 ++ h3
+  i = i1 ++ i2 ++ i3
+  j = j1 ++ j2 ++ j3
+  squares = [a, b, c, d, f, g, h, i, j]
+  # |> Enum.map(&Enum.all?(1..9, fn n -> n in &1 end))
+  # |> Enum.all?()
 end
+end
+# [[1,3,2,5,4,6,9,8,7], [4,6,5,8,7,9,3,2,1], [7,9,8,2,1,3,6,5,4], [9,2,1,4,3,5,8,7,6], [3,5,4,7,6,8,2,1,9], [6,8,7,1,9,2,5,4,3], [5,7,6,9,8,1,4,3,2], [2,4,3,6,5,7,1,9,8], [8,1,9,3,2,4,7,6,5]]
