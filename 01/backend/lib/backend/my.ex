@@ -896,9 +896,9 @@ defmodule Backend.My do
   end
 
   def get_sudoku_columns(g) do
-    Enum.map(0..length(g) - 1, fn index ->
-      Enum.map(g, &Enum.at(&1, index))
-    end)
+    g
+    |> Enum.zip
+    |> Enum.map(&(Tuple.to_list(&1)))
   end
 
   def get_sudoku_squares(g) do
@@ -911,6 +911,13 @@ defmodule Backend.My do
       end)
     end)
     |> Enum.reduce([], fn [x|[y|[z]]], acc -> acc ++ [x] ++ [y] ++ [z] end)
+    # grid
+    # |> Enum.map(&(Enum.chunk_every(&1, 3)))
+    # |> Enum.zip
+    # |> Enum.map(&(Tuple.to_list(&1)))
+    # |> Enum.map(&(List.flatten(&1)))
+    # |> List.flatten
+    # |> Enum.chunk_every(9)
   end
 
 end
