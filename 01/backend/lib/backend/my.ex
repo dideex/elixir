@@ -925,4 +925,6 @@ defmodule Backend.My do
     |> String.duplicate(n)
     |> String.to_integer()
   end
+
+  # def largestNumber(n), do: :math.pow(10, n) - 1
 end
