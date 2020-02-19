@@ -920,4 +920,9 @@ defmodule Backend.My do
     # |> Enum.chunk_every(9)
   end
 
+  def largestNumber(n) do
+    "9"
+    |> String.duplicate(n)
+    |> String.to_integer()
+  end
 end
