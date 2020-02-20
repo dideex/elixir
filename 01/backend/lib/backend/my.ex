@@ -927,4 +927,8 @@ defmodule Backend.My do
   end
 
   # def largestNumber(n), do: :math.pow(10, n) - 1
+
+  def candies(n, m) do
+    m - rem(m, n)
+  end
 end
