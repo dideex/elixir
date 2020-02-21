@@ -931,4 +931,8 @@ defmodule Backend.My do
   def candies(n, m) do
     m - rem(m, n)
   end
+
+  def seatsInTheater(nCols, nRows, col, row) do
+    (nCols - col + 1) * (nRows - row)
+  end
 end
