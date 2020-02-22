@@ -935,4 +935,6 @@ defmodule Backend.My do
   def seatsInTheater(nCols, nRows, col, row) do
     (nCols - col + 1) * (nRows - row)
   end
+
+  def circleOfNumbers(n, firstNumber), do: rem firstNumber + n + div(n, 2), n
 end
