@@ -937,4 +937,10 @@ defmodule Backend.My do
   end
 
   def circleOfNumbers(n, firstNumber), do: rem firstNumber + n + div(n, 2), n
+
+  def lateRide(n) do
+    "#{div n, 60}#{rem n, 60}"
+    |> String.graphemes
+    |> Enum.reduce(0, fn num, acc -> acc + String.to_integer(num, 10) end)
+  end
 end
