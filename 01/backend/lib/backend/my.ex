@@ -948,4 +948,8 @@ defmodule Backend.My do
   def phoneCall(min1, _, _, s) when min1 == s, do: 1
   def phoneCall(min1, min2_10, _, s) when s <= min1 + min2_10 * 9 , do: div(s - min1, min2_10) + 1
   def phoneCall(min1, min2_10, min11, s), do: div(s - (min1 + min2_10 * 9), min11) + 10
+
+  def reachNextLevel(e, t, r) do
+    r + e >= t
+  end
 end
