@@ -952,4 +952,10 @@ defmodule Backend.My do
   def reachNextLevel(e, t, r) do
     r + e >= t
   end
+
+  def knapsackLight(v1, w1, v2, w2, maxW) when w1 + w2 <= maxW, do: v1 + v2
+  def knapsackLight(v1, w1, v2, _, maxW) when v1 >= v2 and w1 <= maxW, do: v1
+  def knapsackLight(_, _, v2, w2, maxW) when w2 <= maxW, do: v2
+  def knapsackLight(v1, w1, _, _, maxW) when w1 <= maxW, do: v1
+  def knapsackLight(_, _, _, _, _), do: 0
 end
