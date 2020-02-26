@@ -560,15 +560,15 @@ defmodule Backend.My do
   #     1 + growingPlant(upSpeed, downSpeed, desiredHeight - upSpeed + downSpeed)
   # end
 
-  def knapsackLight(value1, weight1, value2, weight2, maxW) do
-    cond do
-      weight1 + weight2 <= maxW -> value1 + value2
-      max(weight1, weight2) <= maxW -> max(value1, value2)
-      weight1 <= maxW -> value1
-      weight2 <= maxW -> value2
-      true -> 0
-    end
-  end
+  # def knapsackLight(value1, weight1, value2, weight2, maxW) do
+  #   cond do
+  #     weight1 + weight2 <= maxW -> value1 + value2
+  #     max(weight1, weight2) <= maxW -> max(value1, value2)
+  #     weight1 <= maxW -> value1
+  #     weight2 <= maxW -> value2
+  #     true -> 0
+  #   end
+  # end
 
   # def longestDigitsPrefix(inputString) do
   #   case Integer.parse(inputString) do
@@ -953,9 +953,15 @@ defmodule Backend.My do
     r + e >= t
   end
 
-  def knapsackLight(v1, w1, v2, w2, maxW) when w1 + w2 <= maxW, do: v1 + v2
-  def knapsackLight(v1, w1, v2, _, maxW) when v1 >= v2 and w1 <= maxW, do: v1
-  def knapsackLight(_, _, v2, w2, maxW) when w2 <= maxW, do: v2
-  def knapsackLight(v1, w1, _, _, maxW) when w1 <= maxW, do: v1
-  def knapsackLight(_, _, _, _, _), do: 0
+  # def knapsackLight(v1, w1, v2, w2, maxW) when w1 + w2 <= maxW, do: v1 + v2
+  # def knapsackLight(v1, w1, v2, _, maxW) when v1 >= v2 and w1 <= maxW, do: v1
+  # def knapsackLight(_, _, v2, w2, maxW) when w2 <= maxW, do: v2
+  # def knapsackLight(v1, w1, _, _, maxW) when w1 <= maxW, do: v1
+  # def knapsackLight(_, _, _, _, _), do: 0
+
+  def knapsackLight(v1, w1, v2, w2, maxW) do
+    [maxW >= w2 && v2, maxW >= w1 && v1, maxW >= w1 + w2 && v1 + v2, 0]
+    |> Enum.filter(& &1 != false)
+    |> Enum.max()
+  end
 end
