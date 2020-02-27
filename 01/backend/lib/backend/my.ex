@@ -965,8 +965,8 @@ defmodule Backend.My do
     |> Enum.max()
   end
 
-  def extraNumber(a, b, c) when a == b, do: c
-  def extraNumber(a, b, c) when a == c, do: b
-  def extraNumber(a, _, _), do: a
+  def extraNumber(a, a, x), do: x
+  def extraNumber(x, a, a), do: x
+  def extraNumber(a, x, a), do: x
 
 end
