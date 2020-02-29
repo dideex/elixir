@@ -969,13 +969,19 @@ defmodule Backend.My do
   def extraNumber(x, a, a), do: x
   def extraNumber(a, x, a), do: x
 
-def isInfiniteProcess(a, a), do: false
-def isInfiniteProcess(a, b) when b - a <= 2, do: true
-def isInfiniteProcess(a, b) when rem(b - a, 2) == 1, do: true
-def isInfiniteProcess(_, _), do: false
+  def isInfiniteProcess(a, a), do: false
+  def isInfiniteProcess(a, b) when b - a <= 2, do: true
+  def isInfiniteProcess(a, b) when rem(b - a, 2) == 1, do: true
+  def isInfiniteProcess(_, _), do: false
   # def isInfiniteProcess(a, b) do
   #   dif = b - a
   #   dif <= 2 or rem(dif, 2) == 1
   # end
+
+  def arithmeticExpression(a, b, c) when a + b == c, do: true
+  def arithmeticExpression(a, b, c) when a - b == c, do: true
+  def arithmeticExpression(a, b, c) when a * b == c, do: true
+  def arithmeticExpression(a, b, c) when a / b == c, do: true
+  def arithmeticExpression(_, _, _),                 do: false
 
 end
