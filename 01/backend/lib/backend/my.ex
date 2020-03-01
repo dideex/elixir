@@ -984,4 +984,9 @@ defmodule Backend.My do
   def arithmeticExpression(a, b, c) when a / b == c, do: true
   def arithmeticExpression(_, _, _),                 do: false
 
+  def tennisSet(s1, s2), do: check_tennis(max(s1, s2), min(s1, s2))
+
+  defp check_tennis(6, s2) when s2 < 5,      do: true
+  defp check_tennis(7, s2) when s2 in [5,6], do: true
+  defp check_tennis(_, _),                   do: false
 end
