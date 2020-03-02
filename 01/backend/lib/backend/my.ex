@@ -989,4 +989,9 @@ defmodule Backend.My do
   defp check_tennis(6, s2) when s2 < 5,      do: true
   defp check_tennis(7, s2) when s2 in [5,6], do: true
   defp check_tennis(_, _),                   do: false
+
+  def willYou(true, true, false), do: true
+  def willYou(_, false, true),    do: true
+  def willYou(false, _, true),    do: true
+  def willYou(_, _, _),           do: false
 end
