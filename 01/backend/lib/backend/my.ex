@@ -994,4 +994,7 @@ defmodule Backend.My do
   def willYou(_, false, true),    do: true
   def willYou(false, _, true),    do: true
   def willYou(_, _, _),           do: false
+
+  def metroCard(31), do: [28, 30, 31]
+  def metroCard(_),  do: [31]
 end
