@@ -999,12 +999,12 @@ defmodule Backend.My do
   def metroCard(_),  do: [31]
 
   def arrayPacking(a) do
-    [a3, a2, a1] =
-      a
-      |> Enum.map(& Integer.to_string(&1, 2))
-      |> Enum.map(& String.to_integer(&1, 10))
-
-    "#{a1 * 1_0000_0000_0000_0000 + a2 * 1_0000_0000 + a3}"
+    a
+    |> Enum.reverse()
+    |> Enum.map(& Integer.to_string(&1, 2))
+    |> Enum.map(& String.to_integer(&1, 10) + 1_0000_0000)
+    |> Enum.map(& String.slice("#{&1}", 1, 9))
+    |> Enum.join()
     |> String.to_integer(2)
   end
 end
