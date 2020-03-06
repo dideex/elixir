@@ -1007,4 +1007,15 @@ defmodule Backend.My do
     |> Enum.join()
     |> String.to_integer(2)
   end
+
+  def rangeBitCount(a, b) do
+    a..b
+    |> Enum.map(& Integer.to_string(&1, 2))
+    |> Enum.map(fn num ->
+      num
+      |> String.graphemes()
+      |> Enum.reduce(0, & &2 + String.to_integer(&1))
+    end)
+    |> Enum.sum()
+  end
 end
