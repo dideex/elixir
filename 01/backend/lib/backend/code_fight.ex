@@ -1,4 +1,4 @@
-defmodule Backend.My do
+defmodule CF do
   def adjacentElementsProduct(inputArray) do
     inputArray
     |> mulList()
@@ -1017,5 +1017,12 @@ defmodule Backend.My do
       |> Enum.reduce(0, & &2 + String.to_integer(&1))
     end)
     |> Enum.sum()
+  end
+
+  def mirrorBits(a) do
+    a
+    |> Integer.to_string(2)
+    |> String.reverse()
+    |> String.to_integer(2)
   end
 end
