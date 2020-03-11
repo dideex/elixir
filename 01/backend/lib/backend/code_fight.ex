@@ -1025,4 +1025,8 @@ defmodule CF do
     |> String.reverse()
     |> String.to_integer(2)
   end
+
+  def leastFactorial(n) do
+
+  end
 end
