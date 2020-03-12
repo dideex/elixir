@@ -1026,7 +1026,8 @@ defmodule CF do
     |> String.to_integer(2)
   end
 
-  def leastFactorial(n) do
+  def leastFactorial(n), do: do_factorial(n, 1, 1)
 
-  end
+  defp do_factorial(n, s, _) when n <= s, do: s
+  defp do_factorial(n, s, i), do: do_factorial(n, s * (i + 1), i + 1)
 end
