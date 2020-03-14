@@ -1031,10 +1031,9 @@ defmodule CF do
   defp do_factorial(n, s, _) when n <= s, do: s
   defp do_factorial(n, s, i), do: do_factorial(n, s * (i + 1), i + 1)
 
-  #                                 93 24 58
   def countSumOfTwoRepresentations2(n, l, r) do
-    r..trunc((r - l) / 2) + l
-    |> Enum.filter(& n - &1 in l..r)
-    |> length()
+    w = ceil(n / 2)
+    min(w - l + 1, r - w + 1)
+    |> max(0)
   end
 end
