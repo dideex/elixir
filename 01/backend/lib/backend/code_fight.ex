@@ -1036,4 +1036,7 @@ defmodule CF do
     min(w - l + 1, r - w + 1)
     |> max(0)
   end
+
+  def magicalWell(_, _, 0), do: 0
+  def magicalWell(a, b, n), do: Enum.reduce(0..(n - 1), 0, & ((a + &1) * (b + &1) + &2))
 end
