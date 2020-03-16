@@ -1039,4 +1039,15 @@ defmodule CF do
 
   def magicalWell(_, _, 0), do: 0
   def magicalWell(a, b, n), do: Enum.reduce(0..(n - 1), 0, & ((a + &1) * (b + &1) + &2))
+
+  def lineUp(commands) do
+    commands
+    |> String.graphemes()
+    |> Enum.reduce({0, 0}, fn letter, {sum, current} ->
+        sum = if letter == "A", do: sum + 2, else: sum + 1
+        current = if rem(sum, 2) == 0, do: current + 1, else: current
+        {sum, current}
+      end)
+    |> elem(1)
+  end
 end
