@@ -1050,4 +1050,24 @@ defmodule CF do
       end)
     |> elem(1)
   end
+
+  def additionWithoutCarrying(param1, param2) do
+    len = max(param1, param2)
+    param1 = num_to_same_len_list(param1, len)
+    param2 = num_to_same_len_list(param2, len)
+
+    param1
+    |> Enum.zip(param2)
+    |> Enum.map(fn {a, b} -> rem(a + b, 10) end)
+    |> Enum.join("")
+    |> String.to_integer(10)
+  end
+
+  defp num_to_same_len_list(num, len) do
+    len = len |> Integer.digits() |> length
+    num + :math.pow(10, len)
+    |> trunc()
+    |> Integer.digits()
+    |> tl()
+  end
 end
