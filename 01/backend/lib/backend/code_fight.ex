@@ -1070,4 +1070,13 @@ defmodule CF do
     |> Integer.digits()
     |> tl()
   end
+
+  def appleBoxes(k) do
+    Enum.reduce(1..k, 0, fn num, acc ->
+      case rem(num, 2) do
+        0 -> acc + num * num
+        1 -> acc - num * num
+      end
+    end)
+  end
 end
