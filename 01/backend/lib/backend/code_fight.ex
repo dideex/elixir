@@ -1079,4 +1079,10 @@ defmodule CF do
       end
     end)
   end
+
+  def increaseNumberRoundness(n) do
+    "#{n}"
+    |> String.replace(~r/0+$/, "")
+    |> String.contains?("0")
+  end
 end
