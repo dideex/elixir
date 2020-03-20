@@ -1085,4 +1085,15 @@ defmodule CF do
     |> String.replace(~r/0+$/, "")
     |> String.contains?("0")
   end
+
+  def rounders(n) when n > 10 do
+    n
+    |> round()
+    |> (& &1 / 10).()
+    |> rounders()
+    |> (& &1 * 10).()
+  end
+  def rounders(n) do
+    round(n)
+  end
 end
