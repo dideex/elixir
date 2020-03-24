@@ -1096,4 +1096,12 @@ defmodule CF do
   def rounders(n) do
     round(n)
   end
+
+  def candles(candlesNumber, makeNew, leftovers \\ 0)
+  def candles(candlesNumber, makeNew, leftovers) when candlesNumber > 0 do
+    candlesNumber + candles(div(candlesNumber + leftovers, makeNew), makeNew, rem(candlesNumber + leftovers, makeNew))
+  end
+  def candles(candlesNumber, _, _) do
+    candlesNumber
+  end
 end
