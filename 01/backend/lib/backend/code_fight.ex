@@ -1104,4 +1104,8 @@ defmodule CF do
   def candles(candlesNumber, _, _) do
     candlesNumber
   end
+
+  def countBlackCells(n, m) do
+
+  end
 end
