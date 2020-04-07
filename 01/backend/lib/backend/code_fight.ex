@@ -1115,6 +1115,6 @@ defmodule CF do
     n * 3 - 2
   end
   def countBlackCells(n, m) do
-
+    m
   end
 end
