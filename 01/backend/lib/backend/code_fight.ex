@@ -1105,11 +1105,11 @@ defmodule CF do
     candlesNumber
   end
 
-  def countBlackCells(1, 1) do
-    1
-  end
   def countBlackCells(2, 2) do
     4
+  end
+  def countBlackCells(1, 1) do
+    1
   end
   def countBlackCells(n, m) when n == m do
     n * 3 - 2
