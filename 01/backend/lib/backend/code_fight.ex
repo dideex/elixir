@@ -1097,14 +1097,6 @@ defmodule CF do
     round(n)
   end
 
-  def candles(candlesNumber, makeNew, leftovers \\ 0)
-  def candles(candlesNumber, makeNew, leftovers) when candlesNumber > 0 do
-    candlesNumber + candles(div(candlesNumber + leftovers, makeNew), makeNew, rem(candlesNumber + leftovers, makeNew))
-  end
-  def candles(candlesNumber, _, _) do
-    candlesNumber
-  end
-
   def countBlackCells(2, 2) do
     4
   end
@@ -1116,5 +1108,13 @@ defmodule CF do
   end
   def countBlackCells(n, m) do
     m
+  end
+
+  def candles(candlesNumber, makeNew, leftovers \\ 0)
+  def candles(candlesNumber, makeNew, leftovers) when candlesNumber > 0 do
+    candlesNumber + candles(div(candlesNumber + leftovers, makeNew), makeNew, rem(candlesNumber + leftovers, makeNew))
+  end
+  def candles(candlesNumber, _, _) do
+    candlesNumber
   end
 end
