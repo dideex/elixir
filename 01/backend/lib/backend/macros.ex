@@ -1,12 +1,11 @@
-defmodule Math do
-
+defmodule Macroses do
   # {:+, [context: Elixir, import: Kernel], [5, 2]}
   defmacro say({:+, _, [lhs, rhs]}) do
     quote do
       lhs = unquote(lhs)
       rhs = unquote(rhs)
       result = lhs + rhs
-      IO.puts "#{lhs} plus #{rhs} is #{result}"
+      IO.puts("#{lhs} plus #{rhs} is #{result}")
       result
     end
   end
@@ -17,8 +16,32 @@ defmodule Math do
       lhs = unquote(lhs)
       rhs = unquote(rhs)
       result = lhs * rhs
-      IO.puts "#{lhs} times #{rhs} is #{result}"
+      IO.puts("#{lhs} times #{rhs} is #{result}")
       result
     end
   end
+
+  # iex> require Macroses
+  # iex> Macroses.unless 2 == 5, do: "block entered"
+  # "block entered"
+  defmacro unless(expression, do: block) do
+    quote do
+      if !unquote(expression), do: unquote(block)
+    end
+  end
 end
+
+# quote do
+#   defmodule My do
+#     def hello, do: :world
+#   end
+# end
+
+# {:defmodule, [context: Elixir, import: Kernel],
+#  [
+#    {:__aliases__, [alias: false], [:My]},
+#    [
+#      do: {:def, [context: Elixir, import: Kernel],
+#       [{:hello, [context: Elixir], Elixir}, [do: :world]]}
+#    ]
+#  ]}
