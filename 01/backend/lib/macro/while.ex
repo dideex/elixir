@@ -7,7 +7,7 @@ defmodule Loop do
             unquote(do_block)
           else
             IO.inspect "look is breaked"
-            throw :break
+            Loop.break()
           end
         end
         catch
@@ -15,4 +15,7 @@ defmodule Loop do
       end
     end
   end
+
+  def break,
+    do: throw :break
 end
