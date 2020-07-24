@@ -29,10 +29,26 @@ defmodule Macroses do
 
       def friendly_info do
         IO.puts("""
-          My name is #{__MODULE__}
-          """)
-          # My functions are #{inspect(__info__(:functions))}
+        My name is #{__MODULE__}
+        """)
+
+        # My functions are #{inspect(__info__(:functions))}
       end
+    end
+  end
+
+  # call = fn -> IO.puts "Calling ..." end
+  # log(call.()) won't run twice
+  defmacro log(expression) do
+    if Application.get_env(:debugger, :log_level) == :debug do
+      quote bind_quoted: [expression: expression] do
+        IO.puts("=================")
+        IO.inspect(expression)
+        IO.puts("=================")
+        expression
+      end
+    else
+      expression
     end
   end
 
