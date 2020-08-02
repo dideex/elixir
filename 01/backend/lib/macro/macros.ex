@@ -76,3 +76,16 @@ end
 #       [{:hello, [context: Elixir], Elixir}, [do: :world]]}
 #    ]
 #  ]}
+
+# iex> Fragments.one
+# 1
+# iex> Fragments.two
+# 2s
+# dynamically define function
+defmodule Fragments do
+  @external_resource mimes_path = Path.join([__DIR__, "mime.txt"])
+
+  for {name, val} <- [one: 1, two: 2, three: 3] do
+    def unquote(name)(), do: unquote(val)
+  end
+end
