@@ -24,21 +24,21 @@ defmodule Translator do
         deftranslations(locale, "", mappings)
       end
 
-    final_ast =
-      quote do
-        def t(locale, path, bindings \\ [])
-        unquote(translations_ast)
-        def t(_locale, _path, _bindings), do: {:error, :no_translation}
-      end
+    # final_ast =
+    #   quote do
+    #     def t(locale, path, bindings \\ [])
+    #     unquote(translations_ast)
+    #     def t(_locale, _path, _bindings), do: {:error, :no_translation}
+    #   end
 
-    IO.puts(Macro.to_string(final_ast))
-    final_ast
+    # IO.puts(Macro.to_string(final_ast))
+    # final_ast
 
-    # quote do
-    #   def t(locale, path, bindings \\ [])
-    #   unquote(translations_ast)
-    #   def t(_locale, _path, _bindings), do: {:error, :no_translation}
-    # end
+    quote do
+      def t(locale, path, bindings \\ [])
+      unquote(translations_ast)
+      def t(_locale, _path, _bindings), do: {:error, :no_translation}
+    end
   end
 
   defp deftranslations(locale, current_path, mappings) do
