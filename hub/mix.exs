@@ -21,7 +21,7 @@ defmodule Hub.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.1.0"},
+      {:ibrowse, github: "cmullaparthi/ibrowse", tag: "v4.4.1"},
       {:poison, "~> 1.3.0"},
       {:httpotion, "~> 1.0.0"}
     ]
