@@ -63,4 +63,16 @@ defmodule TranslatorTest do
     assert I18n.t("fr", "flash.notice.hello", first: 123, last: 456) ==
              "salut 123 456!"
   end
+
+  test "compile/1 generates catch-all t/3 functions" do
+    assert Translator.compile([]) |> Macro.to_string == String.strip ~S"""
+    (
+      def(t(locale, path, bindings \\ []))
+      []
+      def(t(_locale, _path, _bindings)) do
+        {:error, :no_translation}
+      end
+    )
+    """
+    end
 end
