@@ -17,10 +17,10 @@ defmodule Html do
     do: Agent.stop(buff)
 
   def put_buffer(buff, content),
-    do: Agent.upate(buff, &[content | &1])
+    do: Agent.update(buff, &[content | &1])
 
   def render(buff),
-    do: Agent.get(buff, & &1) |> Enum.reverse |> Enum.join ""
+    do: Agent.get(buff, & &1) |> Enum.reverse() |> Enum.join("")
 
   defmacro tag(name, do: inner) do
     quote do
@@ -30,7 +30,7 @@ defmodule Html do
     end
   end
 
-  defmodule text(string) do
+  defmacro text(string) do
     quote do
       put_buffer(var!(buffer, __MODULE__), to_string(unquote(string)))
     end
