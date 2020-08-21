@@ -4,10 +4,20 @@ defmodule HtmlImpl do
 
   def render do
     markup do
-      tag :div do
-        tag :span do
-          Logger.info "We can mix regular Elixir code here"
-          text "Nested tags are no trouble for our buffer"
+      div id: "main" do
+        h1(
+          class: "title",
+          do: text("Welcome!")
+        )
+
+        div class: "row" do
+          div class: "column" do
+            p("Hello!")
+          end
+        end
+
+        button onclick: "javascript: history.go(-1);" do
+          text("Back")
         end
       end
     end
