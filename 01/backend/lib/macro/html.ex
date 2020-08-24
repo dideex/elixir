@@ -4,27 +4,38 @@ defmodule Html do
   @tags (for line <- File.stream!(tags_path, [], :line),
     do: line |> String.strip |> String.to_atom)
 
-  for tag <- @tags do
-    defmacro unquote(tag)(attrs, do: inner) do
-      tag = unquote(tag)
-      quote do: tag(unquote(tag), unquote(attrs), do: unquote(inner))
-    end
-    defmacro unquote(tag)(attrs \\ []) do
-      tag = unquote(tag)
-      quote do: tag(unquote(tag), unquote(attrs))
-    end
-  end
+  # for tag <- @tags do
+  #   defmacro unquote(tag)(attrs, do: inner) do
+  #     tag = unquote(tag)
+  #     quote do: tag(unquote(tag), unquote(attrs), do: unquote(inner))
+  #   end
+  #   defmacro unquote(tag)(attrs \\ []) do
+  #     tag = unquote(tag)
+  #     quote do: tag(unquote(tag), unquote(attrs))
+  #   end
+  # end
 
   defmacro markup(do: block) do
     quote do
       import Kernel, except: [div: 2]
       {:ok, var!(buffer, __MODULE__)} = start_buffer([])
-      unquote(block)
+      unquote(Macro.postwalk(block, &postwalk/1))
       result = render(var!(buffer, __MODULE__))
       :ok = stop_buffer(var!(buffer, __MODULE__))
       result
     end
   end
+
+  def postwalk({:text, _meta, [string]}) do
+    quote do: put_buffer(var!(buffer, Html), to_string(unquote(string)))
+  end
+  def postwalk({tagname, _meta, [do: inner]}), when tagname in @tags do
+    quote do: tag(unquote(tagname), [], do: unquote(inner))
+  end
+  def postwalk({tagname, _meta, [attrs, [do: inner]]}), when tagname in @tags do
+    quote do: tag(unquote(tagname), unquote(attrs), do: unquote(inner))
+  end
+  def postwalk(ast), do: ast
 
   def start_buffer(state),
     do: Agent.start_link(fn -> state end)
@@ -66,5 +77,13 @@ defmodule Html do
   def open_tag(name, attrs) do
     attr_html = for {key, val} <- attrs, into: "", do: " #{key}=\"#{val}\""
     "<#{name}#{attr_html}>"
+  end
+end
+
+ast = quote do
+  div do
+    h1 do
+      text "Hello"
+    end
   end
 end
