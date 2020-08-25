@@ -5,14 +5,14 @@ defmodule HtmlImpl do
   def render do
     markup do
       div id: "main" do
-        h1(
-          class: "title",
-          do: text("Welcome!")
-        )
+        # h1(
+        #   class: "title",
+        #   do: text("Welcome!")
+        # )
 
         div class: "row" do
           div class: "column" do
-            p("Hello!")
+            text("Hello!")
           end
         end
 

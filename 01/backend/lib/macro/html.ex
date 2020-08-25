@@ -27,12 +27,12 @@ defmodule Html do
   end
 
   def postwalk({:text, _meta, [string]}) do
-    quote do: put_buffer(var!(buffer, Html), to_string(unquote(string)))
+    quote do: put_buffer(var!(buffer, __MODULE__), to_string(unquote(string)))
   end
-  def postwalk({tagname, _meta, [do: inner]}), when tagname in @tags do
+  def postwalk({tagname, _meta, [do: inner]}) when tagname in @tags do
     quote do: tag(unquote(tagname), [], do: unquote(inner))
   end
-  def postwalk({tagname, _meta, [attrs, [do: inner]]}), when tagname in @tags do
+  def postwalk({tagname, _meta, [attrs, [do: inner]]}) when tagname in @tags do
     quote do: tag(unquote(tagname), unquote(attrs), do: unquote(inner))
   end
   def postwalk(ast), do: ast
@@ -49,17 +49,11 @@ defmodule Html do
   def render(buff),
     do: Agent.get(buff, & &1) |> Enum.reverse() |> Enum.join("")
 
-  defmacro tag(name, attrs \\ []) do
-    quote do
-      {inner, attrs} = Keyword.pop(attrs, :do)
-      quote do: tag(unquote(name), unquote(attrs), do: unquote(inner))
-    end
-  end
-  defmacro tag(name, attrs, do: inner) do
+  defmacro tag(name, attrs \\ [], do: inner) do
     quote do
       put_buffer(var!(buffer, __MODULE__), open_tag(unquote_splicing([name, attrs])))
-      unquote(inner)
-      put_buffer(var!(buffer, __MODULE__), "</#{unquote(name)}>")
+      unquote(postwalk(inner))
+      put_buffer var!(buffer, __MODULE__), "</#{unquote(name)}>"
     end
   end
 
